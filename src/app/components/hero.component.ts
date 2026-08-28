@@ -29,8 +29,8 @@ import { IconComponent } from '../shared/components/icon.component';
           <!-- Left Column: Visual Product Showcase with Hanging Light & Floating Search -->
           <div class="lg:col-span-6 relative order-2 lg:order-1 flex flex-col items-center justify-center">
             
-            <!-- Hanging Pendant Light Overlapping Blob -->
-            <div class="absolute -top-20 left-6 sm:left-12 z-20 w-28 sm:w-36 pointer-events-none animate-float-slow">
+            <!-- Hanging Pendant Light (Directly above sofa on mobile, unchanged on tablet/desktop) -->
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 sm:translate-x-0 sm:-top-20 sm:left-12 z-20 w-28 sm:w-36 pointer-events-none animate-float-slow">
               <img 
                 src="/images/hero/hero-pendant-light.png" 
                 alt="Hanging Pendant Light" 
