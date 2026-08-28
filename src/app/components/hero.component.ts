@@ -29,8 +29,8 @@ import { IconComponent } from '../shared/components/icon.component';
           <!-- Left Column: Visual Product Showcase with Hanging Light & Floating Search -->
           <div class="lg:col-span-6 relative order-2 lg:order-1 flex flex-col items-center justify-center">
             
-            <!-- Hanging Pendant Light (Directly above sofa on mobile, unchanged on tablet/desktop) -->
-            <div class="absolute top-0 left-1/2 -translate-x-1/2 sm:translate-x-0 sm:-top-20 sm:left-12 z-20 w-28 sm:w-36 pointer-events-none animate-float-slow">
+            <!-- Hanging Pendant Light (Multi-device responsive position via CSS) -->
+            <div class="hero-pendant-lamp animate-float-slow">
               <img 
                 src="/images/hero/hero-pendant-light.png" 
                 alt="Hanging Pendant Light" 
@@ -38,13 +38,7 @@ import { IconComponent } from '../shared/components/icon.component';
               />
             </div>
 
-            <!-- Floating Luxury Tag Badge -->
-            <div class="absolute top-8 right-2 sm:right-6 z-20 glass-card px-4 py-2 rounded-2xl shadow-xl border border-white/60 flex items-center gap-2">
-              <div class="w-7 h-7 rounded-full bg-orange-500 text-white flex items-center justify-center text-xs font-bold">
-                <app-icon name="sparkles" customClass="w-3.5 h-3.5"></app-icon>
-              </div>
-
-            </div>
+           
 
             <!-- Hero Main Furniture Asset -->
             <div class="relative w-full max-w-lg mx-auto py-8">
