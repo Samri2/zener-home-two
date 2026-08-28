@@ -26,14 +26,14 @@ import { filter } from 'rxjs/operators';
     }
     @media (max-width: 1023px) {
       .navbar-spacer {
-        height: var(--navbar-height, 120px) !important;
-        min-height: var(--navbar-height, 120px) !important;
+        height: var(--navbar-height, 125px) !important;
+        min-height: var(--navbar-height, 125px) !important;
       }
     }
     @media (max-width: 640px) {
       .navbar-spacer {
-        height: var(--navbar-height, 135px) !important;
-        min-height: var(--navbar-height, 135px) !important;
+        height: var(--navbar-height, 140px) !important;
+        min-height: var(--navbar-height, 140px) !important;
       }
     }
   `],

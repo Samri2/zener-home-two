@@ -42,7 +42,14 @@
 }
 
 .hero-section {
-  margin-top: -65px;
+  @media (min-width: 1024px) {
+    margin-top: -65px;
+  }
+
+  @media (max-width: 1023px) {
+    margin-top: 0 !important;
+    padding-top: 16px !important;
+  }
 }
 /* =====================================================
    CONTAINER

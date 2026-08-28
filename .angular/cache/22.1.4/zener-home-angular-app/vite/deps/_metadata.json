@@ -1,43 +1,43 @@
 {
-  "hash": "9be403a9",
-  "configHash": "18bfd70e",
+  "hash": "09477ac2",
+  "configHash": "208f77a2",
   "lockfileHash": "fac135a7",
-  "browserHash": "ce144055",
+  "browserHash": "21175a21",
   "optimized": {
     "@angular/common": {
       "src": "../../../../../../../zener-home-angular/node_modules/@angular/common/fesm2022/common.mjs",
       "file": "@angular_common.js",
-      "fileHash": "1d7e0433",
+      "fileHash": "d7e8444b",
       "needsInterop": false
     },
     "@angular/core": {
       "src": "../../../../../../../zener-home-angular/node_modules/@angular/core/fesm2022/core.mjs",
       "file": "@angular_core.js",
-      "fileHash": "f80220f6",
+      "fileHash": "758aee07",
       "needsInterop": false
     },
     "@angular/forms": {
       "src": "../../../../../../../zener-home-angular/node_modules/@angular/forms/fesm2022/forms.mjs",
       "file": "@angular_forms.js",
-      "fileHash": "e09a227b",
+      "fileHash": "19c0ea18",
       "needsInterop": false
     },
     "@angular/platform-browser": {
       "src": "../../../../../../../zener-home-angular/node_modules/@angular/platform-browser/fesm2022/platform-browser.mjs",
       "file": "@angular_platform-browser.js",
-      "fileHash": "85a5079b",
+      "fileHash": "59ecb5f5",
       "needsInterop": false
     },
     "@angular/router": {
       "src": "../../../../../../../zener-home-angular/node_modules/@angular/router/fesm2022/router.mjs",
       "file": "@angular_router.js",
-      "fileHash": "9083b233",
+      "fileHash": "3ac9f09a",
       "needsInterop": false
     },
     "rxjs/operators": {
       "src": "../../../../../../../zener-home-angular/node_modules/rxjs/dist/esm5/operators/index.js",
       "file": "rxjs_operators.js",
-      "fileHash": "3d5d1522",
+      "fileHash": "133130cd",
       "needsInterop": false
     }
   },
