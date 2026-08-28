@@ -1,0 +1,604 @@
+export interface ProductItem {
+  id: string;
+  name: string;
+  nameAm?: string;
+  category: 'dining' | 'living' | 'tv-units' | 'bedroom' | 'kitchen' | 'doors';
+  categoryLabel: string;
+  categoryLabelAm?: string;
+  dimensions: string;
+  woodType: string;
+  finish: string;
+  priceNote: string;
+  description: string;
+  image: string;
+  gallery: string[];
+  features: string[];
+  leadTime: string;
+  featured: boolean;
+  tag?: string;
+  priceETB?: string;
+}
+
+export const productsList: ProductItem[] = [
+  {
+    id: 'dining-set-anza-luxury',
+    name: 'Handcrafted Solid Wood Dining Table & 8 Chair Set',
+    nameAm: 'ባለ 8 ሰው የተሟላ የዋንዛ ጠረጴዛ እና ወንበሮች ስብስብ',
+    category: 'dining',
+    categoryLabel: 'Dining Room & Tables',
+    categoryLabelAm: 'መመገቢያ ክፍል',
+    dimensions: 'Table: 240cm (L) x 100cm (W) x 76cm (H)',
+    woodType: 'Kiln-Dried Solid Natural Wanza / Oak Hardwood',
+    finish: 'Hand-Rubbed Natural Oil with Scratch-Resistant Matte Polyurethane Topcoat',
+    priceNote: 'Includes custom 2.4m dining table + 8 high-back upholstered chairs.',
+    priceETB: 'Starting at 125,000 ETB',
+    tag: 'Bestseller',
+    description: 'Masterpiece solid hardwood dining set constructed with reinforced mortise-and-tenon joinery, organic beveled edge detailing, and ergonomically contoured dining chairs.',
+    image: '/images/furniture/furniture-01.jpg',
+    gallery: [
+      '/images/furniture/furniture-01.jpg',
+      '/images/furniture/furniture-02.jpg',
+      '/images/furniture/furniture-03.jpg',
+      '/images/furniture/furniture-04.jpg'
+    ],
+    features: [
+      '100% genuine kiln-dried hardwood moisture-sealed against warping',
+      'High-resilience foam seat cushions wrapped in stain-resistant linen',
+      'Solid heavy-gauge central trestle base for maximum knee clearance',
+      'Heat, moisture, and scratch resistant protective surface seal'
+    ],
+    featured: true,
+    leadTime: '10 - 15 business days'
+  },
+  {
+    id: 'salon-dining-credenza-suite',
+    name: 'Executive Salon Dining Buffet & Low-Profile Credenza',
+    nameAm: 'ዘመናዊ የሳሎን መመገቢያ ቡፌ እና የጎን ካቢኔ',
+    category: 'dining',
+    categoryLabel: 'Dining Room & Tables',
+    categoryLabelAm: 'መመገቢያ ክፍል',
+    dimensions: '220cm (W) x 85cm (H) x 48cm (D)',
+    woodType: 'Solid Walnut Framing with High-Density Marine Core Veneers',
+    finish: 'Natural Honey Satin Finish with Brushed Gold Aluminum Handles',
+    priceNote: 'Matching piece for the Wanza Dining Table collection.',
+    priceETB: 'Starting at 78,000 ETB',
+    tag: 'Popular',
+    description: 'Sophisticated storage credenza with four seamless push-to-open soft-closing doors, internal cutlery drawers, and integrated LED accent lighting underneath.',
+    image: '/images/furniture/furniture-02.jpg',
+    gallery: [
+      '/images/furniture/furniture-02.jpg',
+      '/images/furniture/furniture-01.jpg',
+      '/images/furniture/furniture-03.jpg'
+    ],
+    features: [
+      'German soft-close concealed hydraulic hinges',
+      'Integrated cable pass-throughs for salon bar or audio setup',
+      'Spacious internal shelving with adjustable height options',
+      'Solid timber legs with anti-scratch brass leveling glides'
+    ],
+    featured: true,
+    leadTime: '10 - 14 business days'
+  },
+  {
+    id: 'sculptural-accent-dining-chairs',
+    name: 'Modern Ergonomic Tapered Accent Chairs (Set of 6)',
+    nameAm: 'ዘመናዊ የሚያማምሩ የመመገቢያ እና የሳሎን ወንበሮች',
+    category: 'dining',
+    categoryLabel: 'Dining Room & Tables',
+    categoryLabelAm: 'መመገቢያ ክፍል',
+    dimensions: '56cm (W) x 58cm (D) x 82cm (H) - Seat Height 46cm',
+    woodType: 'Steamed Beech & Solid Wanza Frame',
+    finish: 'Warm Natural Wood Polish with Water-Repellent Textured Fabric',
+    priceNote: 'Available in sets of 4, 6, 8, or individually.',
+    priceETB: 'Starting at 18,500 ETB / chair',
+    tag: 'Trending',
+    description: 'Sculptured minimalist dining and occasional accent chairs designed for ergonomic posture support, tactile comfort, and timeless mid-century aesthetic.',
+    image: '/images/furniture/furniture-03.jpg',
+    gallery: [
+      '/images/furniture/furniture-03.jpg',
+      '/images/furniture/furniture-04.jpg',
+      '/images/furniture/furniture-01.jpg'
+    ],
+    features: [
+      'Curved wrap-around lumbar backrest for extended dining comfort',
+      'Reinforced internal corner blocking tested up to 200kg load',
+      'Breathable, easy-to-clean high-performance upholstery',
+      'Non-marking floor protector glides included'
+    ],
+    featured: false,
+    leadTime: '7 - 10 business days'
+  },
+  {
+    id: 'minimalist-round-bistro-table',
+    name: 'Round Breakfast & Accent Table Set',
+    nameAm: 'ክብ ቅርጽ ያለው የቁርስ እና የሳሎን ጠረጴዛ',
+    category: 'dining',
+    categoryLabel: 'Dining Room & Tables',
+    categoryLabelAm: 'መመገቢያ ክፍል',
+    dimensions: '120cm (Diameter) x 75cm (H)',
+    woodType: 'Natural Solid Oak with Fluted Pedestal Column',
+    finish: 'Ultra-Matte Protective Clear Finish',
+    priceNote: 'Ideal for breakfast nooks, apartment dining, or executive offices.',
+    priceETB: 'Starting at 55,000 ETB',
+    tag: 'Compact Luxury',
+    description: 'Round fluted column pedestal dining table crafted with geometric precision, allowing comfortable 4-to-5 seat spacing without bulky corner legs.',
+    image: '/images/furniture/furniture-04.jpg',
+    gallery: [
+      '/images/furniture/furniture-04.jpg',
+      '/images/furniture/furniture-03.jpg'
+    ],
+    features: [
+      'Acoustic fluted cylinder pedestal base with weighted steel anchor',
+      'Beveled reverse chamfer edge profile on 35mm thick solid top',
+      'Compact footprint perfect for modern luxury urban living',
+      'Waterproof and alcohol-resistant clear finish'
+    ],
+    featured: false,
+    leadTime: '8 - 12 business days'
+  },
+  {
+    id: 'curved-boucle-luxury-sofa',
+    name: 'Artisan Curved Bouclé Salon Sofa & Ottoman',
+    nameAm: 'የቅንጦት የተጠማዘዘ የሳሎን ቡክሌ ሶፋ እና ኦቶማን',
+    category: 'living',
+    categoryLabel: 'Living Room & Sofas',
+    categoryLabelAm: 'ሳሎን ሶፋዎች',
+    dimensions: '3-Seater: 280cm (W) x 115cm (D) x 82cm (H)',
+    woodType: 'Solid Kiln-Dried Hardwood Frame with Reinforced Sinuous Springs',
+    finish: 'Imported Premium Cream Bouclé / Textured Velvet Upholstery',
+    priceNote: 'Available in 2-seater, 3-seater, curved sectional, and customized colors.',
+    priceETB: 'Starting at 165,000 ETB',
+    tag: 'Signature Piece',
+    description: 'An architectural statement piece offering sculptural organic curves, deep 45D orthopedic memory cushioning, and tactile textured bouclé fabric for luxurious salon comfort.',
+    image: '/images/furniture/furniture-05.jpg',
+    gallery: [
+      '/images/furniture/furniture-05.jpg',
+      '/images/furniture/furniture-06.jpg',
+      '/images/furniture/furniture-18.jpg'
+    ],
+    features: [
+      'Multi-layer high-density resilient foam with feather-blend topper',
+      'Internal structural framing guaranteed for 10 years',
+      'Hypoallergenic, breathable, and stain-resistant fabric weave',
+      'Matching circular bouclé ottoman and decorative bolster pillows'
+    ],
+    featured: true,
+    leadTime: '12 - 18 business days'
+  },
+  {
+    id: 'modular-sectional-lounge-couch',
+    name: 'Contemporary Deep-Seated Sectional Sofa',
+    nameAm: 'ሰፊ እና ምቹ ዘመናዊ ባለ 4-መቀመጫ ሳሎን ሶፋ',
+    category: 'living',
+    categoryLabel: 'Living Room & Sofas',
+    categoryLabelAm: 'ሳሎን ሶፋዎች',
+    dimensions: '320cm (L) x 180cm (Chaise Depth) x 80cm (H)',
+    woodType: 'Heavy-Duty Hardwood & Steel Spring Foundation',
+    finish: 'Rich Earth-Tone Velvet / Textured Weave Options',
+    priceNote: 'Reversible L-shape or customized configuration available.',
+    priceETB: 'Starting at 185,000 ETB',
+    tag: 'Top Rated',
+    description: 'Spacious family sectional lounge featuring extra-deep seating, wide padded armrests, and modular connecting brackets for effortless room rearrangement.',
+    image: '/images/furniture/furniture-06.jpg',
+    gallery: [
+      '/images/furniture/furniture-06.jpg',
+      '/images/furniture/furniture-05.jpg',
+      '/images/furniture/furniture-19.jpg'
+    ],
+    features: [
+      'Removable, washable zippered cushion covers for easy maintenance',
+      'Pocket-coil spring matrix for zero motion transfer and sag-free durability',
+      'Reinforced solid wood legs with subtle black matte finish',
+      'Accommodates 6-7 adults comfortably for entertainment'
+    ],
+    featured: true,
+    leadTime: '14 - 20 business days'
+  },
+  {
+    id: 'zenith-tv-wall-unit-slats',
+    name: 'Zenith Fluted Acoustic Timber TV Wall & Floating Console',
+    nameAm: 'ዜኒዝ ዘመናዊ የቲቪ ግድግዳ እና ተንሳፋፊ ካቢኔ',
+    category: 'tv-units',
+    categoryLabel: 'TV & Media Wall Units',
+    categoryLabelAm: 'የቲቪ ግድግዳ እና ካቢኔ',
+    dimensions: '320cm (W) x 270cm (H) x 42cm (D) - Custom Fit',
+    woodType: 'Natural Teak & Acoustic Fluted Slats with Marine HDF Core',
+    finish: 'Scratch-Proof Matte Lacquer with Concealed 3000K LED Strip Channels',
+    priceNote: 'Custom-built on-site to fit your exact living room wall dimensions.',
+    priceETB: 'Starting at 95,000 ETB',
+    tag: 'Flagship Design',
+    description: 'Architectural full-height TV media wall featuring vertical acoustic fluted timber slats, a cantilevered floating media credenza, hidden wire raceways, and ambient LED backlighting.',
+    image: '/images/furniture/furniture-07.jpg',
+    gallery: [
+      '/images/furniture/furniture-07.jpg',
+      '/images/furniture/furniture-08.jpg',
+      '/images/furniture/furniture-09.jpg',
+      '/images/furniture/furniture-13.jpg'
+    ],
+    features: [
+      'Sound-dampening acoustic felt backing behind real wood slats',
+      'Floating console with drop-down acoustic fabric doors for soundbars',
+      'Complete concealed wire management for TV, decoders & game consoles',
+      'Smart dimmable warm LED lighting with remote and wall touch switch'
+    ],
+    featured: true,
+    leadTime: '10 - 15 business days'
+  },
+  {
+    id: 'marble-accent-tv-wall-panel',
+    name: 'Porcelain & Wood Slat Luxury Entertainment Wall',
+    nameAm: 'የእብነበረድ እይታ እና የእንጨት የቲቪ ጀርባ ግድግዳ',
+    category: 'tv-units',
+    categoryLabel: 'TV & Media Wall Units',
+    categoryLabelAm: 'የቲቪ ግድግዳ እና ካቢኔ',
+    dimensions: '280cm (W) x 260cm (H) x 40cm (D)',
+    woodType: 'Sintered Stone Porcelain Slab + Walnut Fluted Wings',
+    finish: 'Bookmatched Gold-Vein Marble Porcelain with Warm LED Perimeter',
+    priceNote: 'Includes high-gloss porcelain slab + dual fluted timber side wings.',
+    priceETB: 'Starting at 110,000 ETB',
+    tag: 'Luxury Modern',
+    description: 'High-impact focal TV wall combining ultra-durable sintered porcelain stone with warm natural walnut fluted panels and floating drawer storage.',
+    image: '/images/furniture/furniture-08.jpg',
+    gallery: [
+      '/images/furniture/furniture-08.jpg',
+      '/images/furniture/furniture-07.jpg',
+      '/images/furniture/furniture-09.jpg'
+    ],
+    features: [
+      'Sintered stone porcelain: 100% heat, scratch, and chemical immune',
+      'Internal heavy-duty steel wall cleats supporting up to 85-inch TVs',
+      'Velvet-lined soft-closing drawers for remote and accessory storage',
+      'Integrated electrical sub-panel with clean concealed outlets'
+    ],
+    featured: false,
+    leadTime: '12 - 16 business days'
+  },
+  {
+    id: 'minimalist-low-credenza-media',
+    name: 'Floating Low-Profile Media Credenza & Display Shelves',
+    nameAm: 'ተንሳፋፊ የሳሎን እቃዎች መደርደሪያ እና ካቢኔ',
+    category: 'tv-units',
+    categoryLabel: 'TV & Media Wall Units',
+    categoryLabelAm: 'የቲቪ ግድግዳ እና ካቢኔ',
+    dimensions: '240cm (W) x 45cm (H) x 40cm (D)',
+    woodType: 'Solid Natural Timber with Matte Black Steel Accents',
+    finish: 'Natural Matte Hardwood Varnish',
+    priceNote: 'Available in wall-mounted floating or floor-standing leg options.',
+    priceETB: 'Starting at 52,000 ETB',
+    tag: 'Minimalist',
+    description: 'Streamlined low-profile entertainment console with fluted wood drawer fronts, open media shelf compartments, and integrated ventilation for gaming units.',
+    image: '/images/furniture/furniture-09.jpg',
+    gallery: [
+      '/images/furniture/furniture-09.jpg',
+      '/images/furniture/furniture-07.jpg',
+      '/images/furniture/furniture-13.jpg'
+    ],
+    features: [
+      'Clean 45-degree mitered corner joints for seamless monolithic look',
+      'Integrated thermal ventilation slots preventing electronic overheating',
+      'Push-to-open smooth ball-bearing drawer slides',
+      'Sturdy heavy-load internal wall anchors'
+    ],
+    featured: false,
+    leadTime: '8 - 12 business days'
+  },
+  {
+    id: 'master-bedroom-platform-suite',
+    name: 'Master Suite Halo-Lit Platform Bed & Headboard',
+    nameAm: 'የማስተር መኝታ ክፍል የተሟላ አልጋ እና የራስጌ ስራ',
+    category: 'bedroom',
+    categoryLabel: 'Master Bedroom Suites',
+    categoryLabelAm: 'የመኝታ ክፍል',
+    dimensions: 'King Size: 200cm x 200cm Bed / 320cm Wide Integrated Headboard',
+    woodType: 'Solid Natural Hardwood with Padded Velvet / Suede Headboard',
+    finish: 'Hand-Finished Timber with Integrated 3000K Reading Lights & USB Ports',
+    priceNote: 'Includes King platform bed, extended headboard wings, and dual floating nightstands.',
+    priceETB: 'Starting at 145,000 ETB',
+    tag: 'Hotel Grade',
+    description: 'Hotel-grade master bedroom suite with extended acoustic wall headboard, integrated bedside floating tables with wireless charging zones, and ambient under-bed glow.',
+    image: '/images/furniture/furniture-10.jpg',
+    gallery: [
+      '/images/furniture/furniture-10.jpg',
+      '/images/furniture/furniture-11.jpg',
+      '/images/furniture/furniture-12.jpg'
+    ],
+    features: [
+      'Heavy-duty solid hardwood slatted base supporting all mattress types',
+      'Extended acoustic tufted fabric panels for quiet and cozy slumber',
+      'Dual floating nightstands with concealed push-to-open drawers',
+      'Built-in dual-side reading gooseneck spot lamps and warm halo coves'
+    ],
+    featured: true,
+    leadTime: '12 - 16 business days'
+  },
+  {
+    id: 'walk-in-wardrobe-closet-system',
+    name: 'Modular Walk-in Wardrobe & Dressing Suite',
+    nameAm: 'ዘመናዊ የልብስ ክፍል ካቢኔቶች እና ቁም ሳጥኖች',
+    category: 'bedroom',
+    categoryLabel: 'Master Bedroom Suites',
+    categoryLabelAm: 'የመኝታ ክፍል',
+    dimensions: 'Custom room-fit floor-to-ceiling dimensions',
+    woodType: 'Moisture-Resistant Marine HDF with Natural Oak / Smoke Glass Doors',
+    finish: 'Smoked Glass Aluminum Frame Doors with Motion-Activated LED Rails',
+    priceNote: 'Custom configured with shoe carousels, jewelry drawers, and hanging racks.',
+    priceETB: 'Custom quote per linear meter',
+    tag: 'Custom Built',
+    description: 'Luxury bespoke walk-in closet systems engineered with aluminum glass doors, soft-close velvet accessory trays, illuminated garment rods, and full-length vanity mirrors.',
+    image: '/images/furniture/furniture-11.jpg',
+    gallery: [
+      '/images/furniture/furniture-11.jpg',
+      '/images/furniture/furniture-10.jpg',
+      '/images/furniture/furniture-12.jpg'
+    ],
+    features: [
+      'Motion sensor LED lighting illuminating every garment compartment',
+      'Velvet-lined drawers with compartments for watches, jewelry & ties',
+      'Floor-to-ceiling maximize storage optimization',
+      'Dust-sealed tempered glass doors preventing garment degradation'
+    ],
+    featured: false,
+    leadTime: '14 - 20 business days'
+  },
+  {
+    id: 'luxury-dressing-vanity-station',
+    name: 'Illuminated Dressing Vanity & Mirror Console',
+    nameAm: 'የሴቶች ዘመናዊ የመዋቢያ ጠረጴዛ ከመስታወት እና መብራት ጋር',
+    category: 'bedroom',
+    categoryLabel: 'Master Bedroom Suites',
+    categoryLabelAm: 'የመኝታ ክፍል',
+    dimensions: '140cm (W) x 180cm (Total H) x 45cm (D)',
+    woodType: 'Natural Hardwood Framing with Brushed Gold Metal Details',
+    finish: 'High-Gloss White Lacquer with Fluted Timber Drawers & LED Mirror',
+    priceNote: 'Includes smart touch-dimmable LED mirror and matching upholstered stool.',
+    priceETB: 'Starting at 65,000 ETB',
+    tag: 'Elegance',
+    description: 'Custom dressing table featuring a touch-activated tricolor LED vanity mirror, fluted storage drawers with velvet inserts, and a coordinating plush stool.',
+    image: '/images/furniture/furniture-12.jpg',
+    gallery: [
+      '/images/furniture/furniture-12.jpg',
+      '/images/furniture/furniture-10.jpg',
+      '/images/furniture/furniture-11.jpg'
+    ],
+    features: [
+      'Smart 3-temperature LED mirror (Warm 3000K, Natural 4500K, Daylight 6000K)',
+      'Multiple partitioned compartments for cosmetics, perfume and styling tools',
+      'Reinforced solid hardwood frame with anti-tip wall fasteners',
+      'Scratch-resistant tempered glass or quartz tabletop overlay'
+    ],
+    featured: false,
+    leadTime: '8 - 12 business days'
+  },
+  {
+    id: 'fluted-timber-room-divider',
+    name: 'Architectural Vertical Fluted Wood Screen & Room Divider',
+    nameAm: 'የሳሎን እና የመመገቢያ መለያያ የሚያምር የእንጨት ከፋይ',
+    category: 'doors',
+    categoryLabel: 'Doors & Partitions',
+    categoryLabelAm: 'በሮችና ከፋዮች',
+    dimensions: 'Custom Height up to 320cm / Width as required',
+    woodType: 'Solid Natural Hardwood (Wanza / Mahogany / Teak)',
+    finish: 'Natural Matte Wood Stain with Semi-Transparent Topcoat',
+    priceNote: 'Priced per square meter based on wood specification.',
+    priceETB: 'Starting at 14,000 ETB / m²',
+    tag: 'Spatial Design',
+    description: 'Floor-to-ceiling decorative vertical timber partitions that create distinct living and dining zones while maintaining airflow, light transmission, and architectural depth.',
+    image: '/images/furniture/furniture-13.jpg',
+    gallery: [
+      '/images/furniture/furniture-13.jpg',
+      '/images/furniture/furniture-07.jpg',
+      '/images/furniture/furniture-16.jpg'
+    ],
+    features: [
+      'Concealed top and bottom anchoring with zero visible screws',
+      'Allows natural light to flow while offering elegant visual privacy',
+      'Rotatable slat options available for adjustable privacy angles',
+      'Treated with flame-retardant and termite-resistant coatings'
+    ],
+    featured: false,
+    leadTime: '7 - 10 business days'
+  },
+  {
+    id: 'modular-luxury-kitchen-cabinets',
+    name: 'Modular Italian-Style Kitchen Cabinetry & Waterfall Island',
+    nameAm: 'የቅንጦት ሞዱላር የወጥ ቤት ካቢኔቶች እና የኳርትዝ ደሴት',
+    category: 'kitchen',
+    categoryLabel: 'Custom Kitchens',
+    categoryLabelAm: 'ወጥ ቤት ካቢኔት',
+    dimensions: 'Custom layout tailored to villa / apartment kitchen floorplan',
+    woodType: '100% Water-Resistant Marine Grade Plywood & Acrylic Gloss Finish',
+    finish: 'Scratch-Proof Matte/Gloss Acrylic Panels with 20mm Calacatta Quartz',
+    priceNote: 'Includes full cabinetry, quartz waterfall island, soft-close hardware & LED coves.',
+    priceETB: 'Starting at 220,000 ETB (Complete Suite)',
+    tag: 'Master Chef',
+    description: 'Ergonomically planned chef kitchens with anti-fingerprint acrylic cabinet surfaces, quartz waterfall prep islands, built-in appliance housings, and pantry pull-outs.',
+    image: '/images/furniture/furniture-14.jpg',
+    gallery: [
+      '/images/furniture/furniture-14.jpg',
+      '/images/furniture/furniture-15.jpg',
+      '/images/projects/site-02/photo-05.jpg'
+    ],
+    features: [
+      'Imported Blum/Hettich hydraulic soft-close dampers guaranteed for 100,000 cycles',
+      'Water-impervious marine substrate tested against tropical humidity',
+      'Hidden LED task lighting recessed beneath all upper wall cabinets',
+      'Integrated spice pull-outs, corner magic carousels, and dual waste bins'
+    ],
+    featured: true,
+    leadTime: '15 - 22 business days'
+  },
+  {
+    id: 'pantry-quartz-breakfast-island',
+    name: 'Kitchen Breakfast Bar Island with Solid Wood Stool Seating',
+    nameAm: 'የወጥ ቤት መመገቢያ ደሴት እና ተጓዳኝ የእንጨት ወንበሮች',
+    category: 'kitchen',
+    categoryLabel: 'Custom Kitchens',
+    categoryLabelAm: 'ወጥ ቤት ካቢኔት',
+    dimensions: '220cm (L) x 90cm (W) x 92cm (H)',
+    woodType: 'Solid Natural Hardwood Framework with Quartz Countertop',
+    finish: 'Calacatta Gold Quartz Slab with Fluted Wood Base Wrapping',
+    priceNote: 'Comes with 3 or 4 matching solid timber barstools.',
+    priceETB: 'Starting at 85,000 ETB',
+    tag: 'Social Hub',
+    description: 'Central kitchen island serving as both a food prep surface and morning coffee bar, featuring wrap-around fluted timber cladding, integrated power popups, and barstools.',
+    image: '/images/furniture/furniture-15.jpg',
+    gallery: [
+      '/images/furniture/furniture-15.jpg',
+      '/images/furniture/furniture-14.jpg',
+      '/images/furniture/furniture-04.jpg'
+    ],
+    features: [
+      'Stain-proof 20mm engineered quartz countertop with seamless waterfall drop',
+      'Deep drawer storage on chef side for pots, pans, and heavy cookware',
+      'Pop-up electrical column with USB-C and 220V power outlets',
+      'Comfortable 30cm knee overhang for ergonomic breakfast bar seating'
+    ],
+    featured: false,
+    leadTime: '10 - 14 business days'
+  },
+  {
+    id: 'solid-hardwood-entrance-door',
+    name: 'Grand Solid Hardwood Pivot Entrance Door',
+    nameAm: 'ታላቁ የዋና መግቢያ የዋንዛ ፒቮት በር ከተቆለፈ ስርዓት ጋር',
+    category: 'doors',
+    categoryLabel: 'Doors & Partitions',
+    categoryLabelAm: 'በሮችና ከፋዮች',
+    dimensions: '140cm - 160cm (W) x 260cm - 300cm (H) x 60mm (Thickness)',
+    woodType: '100% Solid Seasoned Wanza / Teak Hardwood Core',
+    finish: 'Weather-Resistant Exterior Marine UV Polyurethane Sealant',
+    priceNote: 'Includes heavy-duty 500kg German pivot hinge system & smart biometric lock.',
+    priceETB: 'Starting at 95,000 ETB',
+    tag: 'Architectural',
+    description: 'Commanding oversized solid hardwood pivot door engineered for luxury residences, equipped with high-security multi-point locking and 3D architectural geometric groove carvings.',
+    image: '/images/furniture/furniture-16.jpg',
+    gallery: [
+      '/images/furniture/furniture-16.jpg',
+      '/images/furniture/furniture-17.jpg',
+      '/images/furniture/furniture-20.jpg'
+    ],
+    features: [
+      'Heavy-duty floor-mounted German pivot hinge enabling smooth 360-degree rotation',
+      'Multi-point perimeter security locking system compatible with smart biometrics',
+      'Integrated triple silicone weatherstrip seals against dust, rain, and draft',
+      'Carved 3D architectural horizontal or vertical acoustic fluted patterns'
+    ],
+    featured: true,
+    leadTime: '12 - 18 business days'
+  },
+  {
+    id: 'acoustic-interior-room-doors',
+    name: 'Modern Flush Interior Acoustic Hardwood Doors',
+    nameAm: 'ዘመናዊ የቤት ውስጥ የድምጽ መከላከያ የእንጨት በሮች',
+    category: 'doors',
+    categoryLabel: 'Doors & Partitions',
+    categoryLabelAm: 'በሮችና ከፋዮች',
+    dimensions: '90cm - 100cm (W) x 220cm - 240cm (H) x 45mm (Thickness)',
+    woodType: 'Solid Engineered Timber with Acoustic Sound-Dampening Core',
+    finish: 'Natural Wood Veneer / Matte Black / White Architectural Finish',
+    priceNote: 'Package includes door leaf, matching architraves, magnetic lock, and stainless handles.',
+    priceETB: 'Starting at 24,000 ETB / door package',
+    tag: 'Villa Standard',
+    description: 'High-performance flush interior doors featuring acoustic sound isolation cores, magnetic silent latches, concealed 3D adjustable hinges, and matching natural wood architraves.',
+    image: '/images/furniture/furniture-17.jpg',
+    gallery: [
+      '/images/furniture/furniture-17.jpg',
+      '/images/furniture/furniture-16.jpg',
+      '/images/furniture/furniture-20.jpg'
+    ],
+    features: [
+      'Concealed German 3D adjustable hinges for completely flush wall alignment',
+      'Magnetic silent lock system for whisper-quiet latching and zero rattling',
+      'Drop-down automatic acoustic bottom threshold seal for bedroom privacy',
+      'Matching wrap-around architrave casings tailored to wall thickness'
+    ],
+    featured: false,
+    leadTime: '8 - 12 business days'
+  },
+  {
+    id: 'executive-office-desk-suite',
+    name: 'Executive Director Solid Timber Office Desk & Credenza',
+    nameAm: 'የስራ አስኪያጅ የቢሮ ጠረጴዛ እና የፋይል ካቢኔት',
+    category: 'living',
+    categoryLabel: 'Living Room & Sofas',
+    categoryLabelAm: 'ሳሎን እና ቢሮ',
+    dimensions: '220cm (L) x 100cm (W) x 76cm (H) + L-Extension 180cm',
+    woodType: 'Selected African Hardwood & Brushed Steel Base Frame',
+    finish: 'Warm Walnut Veneer with Leather Inlay Writing Pad',
+    priceNote: 'Includes main desk, return side credenza with lockable drawers, and modesty panel.',
+    priceETB: 'Starting at 115,000 ETB',
+    tag: 'Executive',
+    description: 'Prestige corporate director desk set with integrated Italian leather blotter, concealed cable conduits, lockable document pedestals, and contemporary clean lines.',
+    image: '/images/furniture/furniture-18.jpg',
+    gallery: [
+      '/images/furniture/furniture-18.jpg',
+      '/images/furniture/furniture-19.jpg',
+      '/images/furniture/furniture-20.jpg'
+    ],
+    features: [
+      'Integrated desktop wire grommets and power pass-through modules',
+      'Lockable central drawer for confidential documents and digital media',
+      'Full modesty front panel with refined horizontal shadow lines',
+      'Matching executive credenza with space for printer and file folders'
+    ],
+    featured: false,
+    leadTime: '10 - 15 business days'
+  },
+  {
+    id: 'commercial-lounge-armchairs',
+    name: 'Commercial Reception & Hotel Lobby Lounge Armchairs',
+    nameAm: 'የሆቴል ሎቢ እና የቢሮ መቀበያ የቅንጦት ወንበሮች',
+    category: 'living',
+    categoryLabel: 'Living Room & Sofas',
+    categoryLabelAm: 'ሳሎን እና ቢሮ',
+    dimensions: '88cm (W) x 85cm (D) x 78cm (H)',
+    woodType: 'Solid Steamed Ash Wood Frame',
+    finish: 'Commercial Grade Heavy-Traffic Upholstery',
+    priceNote: 'Bulk discounts available for hotel and corporate reception orders.',
+    priceETB: 'Starting at 38,000 ETB / chair',
+    tag: 'Hospitality',
+    description: 'Heavy-traffic luxury lounge chairs designed for hotel lobbies, embassy waiting areas, and executive reception spaces with high stain resistance and ergonomic comfort.',
+    image: '/images/furniture/furniture-19.jpg',
+    gallery: [
+      '/images/furniture/furniture-19.jpg',
+      '/images/furniture/furniture-18.jpg',
+      '/images/furniture/furniture-05.jpg'
+    ],
+    features: [
+      'Heavy-traffic Martindale 50,000+ rub count certified commercial fabrics',
+      'Reinforced internal joint geometry resisting frequent commercial turnover',
+      'Wide supportive armrests allowing laptop and notepad use',
+      'Removable seat cushion for professional dry-cleaning access'
+    ],
+    featured: false,
+    leadTime: '10 - 14 business days'
+  },
+  {
+    id: 'bespoke-cabinetry-wall-storage',
+    name: 'Floor-to-Ceiling Library Bookcase & Display Cabinet',
+    nameAm: 'የመጽሐፍት መደርደሪያ እና የሳሎን ካቢኔቶች ስብስብ',
+    category: 'doors',
+    categoryLabel: 'Doors & Partitions',
+    categoryLabelAm: 'በሮችና ከፋዮች',
+    dimensions: '300cm (W) x 270cm (H) x 38cm (D)',
+    woodType: 'Solid Timber Framing with Warm LED Backlit Shelves',
+    finish: 'Natural Wood Grain & Fluted Glass Lower Cabinet Doors',
+    priceNote: 'Custom configured for books, art trophies, artifacts, and salon decor.',
+    priceETB: 'Starting at 92,000 ETB',
+    tag: 'Custom Built',
+    description: 'Custom architectural library wall with warm LED edge-lit shelves, adjustable heights, fluted reeded glass lower storage, and precision joinery.',
+    image: '/images/furniture/furniture-20.jpg',
+    gallery: [
+      '/images/furniture/furniture-20.jpg',
+      '/images/furniture/furniture-07.jpg',
+      '/images/furniture/furniture-13.jpg'
+    ],
+    features: [
+      'Concealed micro LED lighting integrated into every shelf front channel',
+      'Lower credenza section with fluted glass doors for hidden storage',
+      'Adjustable shelf pins with heavy load support (tested up to 50kg per tier)',
+      'Engineered wall stabilization anchors preventing tilt or vibration'
+    ],
+    featured: false,
+    leadTime: '10 - 16 business days'
+  }
+];
