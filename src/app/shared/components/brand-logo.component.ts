@@ -7,8 +7,8 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule],
   template: `
     <div class="flex items-center gap-3 group text-left">
-      <!-- Left Squircle with Official Logo Picture -->
-      <div class="w-11 h-11 rounded-2xl bg-white dark:bg-[#2A2B33] p-1 flex items-center justify-center shadow-md border border-orange-200/60 dark:border-white/10 overflow-hidden flex-shrink-0 group-hover:scale-105 transition-transform">
+      <!-- Left Rectangular Container for Logo Picture -->
+      <div class="w-14 h-10 rounded-lg bg-transparent p-0.5 flex items-center justify-center overflow-hidden flex-shrink-0 group-hover:scale-105 transition-transform">
         <img 
           src="/images/zener-logo.png" 
           alt="Zener Home Logo" 

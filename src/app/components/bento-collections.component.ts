@@ -19,10 +19,6 @@ import { BentoCollectionItem } from '../core/data/collections';
         
         <!-- Centered Section Heading -->
         <div class="text-center max-w-3xl mx-auto mb-16">
-          <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-orange-500/10 text-orange-600 text-xs font-semibold uppercase tracking-wider mb-4">
-            <app-icon name="sparkles" customClass="w-3.5 h-3.5"></app-icon>
-            <span>Curated Collections</span>
-          </div>
           <h2 class="text-4xl sm:text-5xl font-bold tracking-tight text-gray-900 mb-4">
             Our
             <span class="relative inline-block text-orange-600">

@@ -43,7 +43,7 @@ import { filter } from 'rxjs/operators';
       #navbarHeader
       class="navbar-header fixed top-0 left-0 right-0 z-50 w-full transition-all duration-300 glass-nav border-b border-[#F0E6DD]/80 shadow-sm"
     >
-      <div class="max-w-7xl mx-auto px-4 sm:px-8 py-3 flex items-center justify-between">
+      <div class="w-full px-4 sm:px-8 lg:px-12 py-3 flex items-center justify-between">
         
         <!-- Left: Brand Logo & Wordmark -->
         <a 

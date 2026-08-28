@@ -22,11 +22,6 @@ import { ProjectItem } from '../../core/data/projects';
         
         <div class="max-w-7xl mx-auto px-6 sm:px-8 relative z-10">
           <div class="max-w-3xl">
-            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-orange-500/20 text-orange-400 text-xs font-semibold uppercase tracking-wider mb-4 border border-orange-500/30">
-              <app-icon name="building-2" customClass="w-3.5 h-3.5"></app-icon>
-              <span>{{ isAm() ? 'የዜነር ሆም የተሰሩ ስራዎች' : 'Official Project Portfolio & On-Site Reels' }}</span>
-            </div>
-            
             <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6 leading-tight">
               {{ isAm() ? 'የተከናወኑ የፊኒሺንግ እና ዲዛይን ፕሮጀክቶች' : 'Architectural Precision & Luxury Finishing' }}
             </h1>

@@ -90,14 +90,14 @@ import { IconComponent } from '../shared/components/icon.component';
             <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-gray-900 leading-[1.15] mb-6">
               Make you feel <br class="hidden sm:inline" />
               <span class="relative inline-block">
-                <span class="relative z-10 text-orange-600">luxury</span>
+                <span class="relative z-10 text-orange-900">luxury</span>
                 <span class="absolute bottom-2 left-0 w-full h-3 bg-orange-200/60 -z-0 rounded-sm"></span>
               </span> in every space.
             </h1>
 
             <!-- Subtitle Paragraph -->
-            <p class="text-base sm:text-lg text-gray-600 max-w-lg mb-8 leading-relaxed">
-              Experience the pinnacle of sophisticated living. From bespoke solid-wood salon furniture to complete turnkey architectural finishing for luxury residences and hotels across Ethiopia.
+            <p class="text-base sm:text-lg text-gray-600 dark:text-gray-300 max-w-lg mb-8 leading-relaxed">
+              Handcrafted solid-wood furniture and thoughtful interior finishes — designed with care to turn your villa, apartment, or workspace into a space you truly love.
             </p>
 
             <!-- CTA Group -->
@@ -106,15 +106,15 @@ import { IconComponent } from '../shared/components/icon.component';
                 href="#collections"
                 class="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full bg-[#CC4C0F] text-white font-semibold text-base hover:bg-[#B33E08] shadow-xl hover:shadow-orange-500/30 transition-all duration-300 transform hover:-translate-y-0.5"
               >
-                <span>Shop now</span>
+                <span>Explore Furniture</span>
                 <app-icon name="arrow-right" customClass="w-5 h-5"></app-icon>
               </a>
 
               <a
                 routerLink="/contact"
-                class="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-full bg-white text-gray-900 font-semibold text-base hover:bg-orange-50 border border-orange-200/80 shadow-sm transition-all duration-300"
+                class="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-full bg-white dark:bg-zinc-800 text-gray-900 dark:text-white font-semibold text-base hover:bg-orange-50 dark:hover:bg-zinc-700 border border-orange-200/80 dark:border-white/10 shadow-sm transition-all duration-300"
               >
-                <span>Contact Us</span>
+                <span>Let's Talk</span>
               </a>
             </div>
 
@@ -126,43 +126,39 @@ import { IconComponent } from '../shared/components/icon.component';
       <!-- Trust Strip Below Hero -->
       <div class="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 w-full mt-4 sm:mt-6 pt-0">
         <div class="bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md rounded-3xl p-5 sm:p-6 shadow-xl border border-orange-100/70 dark:border-white/10">
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 divide-y md:divide-y-0 md:divide-x divide-orange-100">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 divide-y md:divide-y-0 md:divide-x divide-orange-100 dark:divide-zinc-800">
             
             <!-- Stat 1: Reviews & Experience -->
             <div class="flex items-center gap-4 sm:gap-5 pb-4 md:pb-0">
               <div class="flex -space-x-3">
-                <div class="w-11 h-11 rounded-full bg-orange-600 text-white font-bold flex items-center justify-center border-2 border-white text-sm shadow">
+                <div class="w-11 h-11 rounded-full bg-orange-600 text-white font-bold flex items-center justify-center border-2 border-white dark:border-zinc-800 text-sm shadow">
                   8+
                 </div>
-                <div class="w-11 h-11 rounded-full bg-[#1A1A1A] text-white font-bold flex items-center justify-center border-2 border-white text-xs shadow">
+                <div class="w-11 h-11 rounded-full bg-[#1A1A1A] text-white font-bold flex items-center justify-center border-2 border-white dark:border-zinc-800 text-xs shadow">
                   ★5.0
                 </div>
               </div>
               <div>
-                <p class="text-2xl font-bold text-gray-900">8+ Years</p>
-                <p class="text-xs text-gray-500 font-medium">Trusted Market Experience</p>
+                <p class="text-2xl font-bold text-gray-900 dark:text-white">8+ Years</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400 font-medium">Proven Craftsmanship & Trust</p>
               </div>
             </div>
 
             <!-- Stat 2: Active Projects -->
             <div class="flex items-center gap-4 sm:gap-5 pt-4 md:pt-0 md:pl-8">
-              <div class="w-12 h-12 rounded-2xl bg-orange-500/10 text-orange-600 flex items-center justify-center font-bold text-lg border border-orange-500/20">
-                150+
-              </div>
+              
               <div>
-                <p class="text-2xl font-bold text-gray-900">150+ Projects</p>
-                <p class="text-xs text-gray-500 font-medium">Villas, Hotels & Apartments</p>
+                <p class="text-2xl font-bold text-gray-900 dark:text-white">150+ Spaces</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400 font-medium">Villas, Hotels & Modern Homes</p>
               </div>
             </div>
 
             <!-- Stat 3: Turnkey Timeline -->
             <div class="flex items-center gap-4 sm:gap-5 pt-4 md:pt-0 md:pl-8">
-              <div class="w-12 h-12 rounded-2xl bg-orange-500/10 text-orange-600 flex items-center justify-center font-bold text-lg border border-orange-500/20">
-                100%
-              </div>
+             
               <div>
-                <p class="text-2xl font-bold text-gray-900">Turnkey Precision</p>
-                <p class="text-xs text-gray-500 font-medium">Budget & Timeline Guarantee</p>
+                <p class="text-2xl font-bold text-gray-900 dark:text-white">On-Time & On-Budget</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400 font-medium">Clear milestones, no surprises</p>
               </div>
             </div>
 

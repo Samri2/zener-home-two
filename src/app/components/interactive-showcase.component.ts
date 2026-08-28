@@ -17,10 +17,7 @@ import { ProductItem } from '../core/data/products';
         <!-- Header -->
         <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
           <div>
-            <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-orange-500/10 text-orange-600 text-xs font-semibold uppercase tracking-wider mb-3">
-              <app-icon name="armchair" customClass="w-3.5 h-3.5"></app-icon>
-              <span>Direct In-House Woodcraft</span>
-            </div>
+            
             <h2 class="text-4xl sm:text-5xl font-bold tracking-tight text-gray-900 leading-tight">
               Custom Furniture &
               <span class="text-orange-500 underline decoration-orange-300 underline-offset-8">
@@ -125,7 +122,7 @@ import { ProductItem } from '../core/data/products';
 
         <!-- Custom Order Callout -->
         <div class="mt-16 bg-orange-500/10 border border-orange-500/20 rounded-3xl p-8 text-center max-w-4xl mx-auto">
-          <app-icon name="sparkles" customClass="w-8 h-8 text-orange-500 mx-auto mb-3"></app-icon>
+         
           <h3 class="text-2xl font-bold text-gray-900 mb-2">
             Have a custom blueprint or unique dimensions in mind?
           </h3>

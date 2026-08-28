@@ -17,17 +17,14 @@ import { IconComponent } from '../../shared/components/icon.component';
         <div class="absolute top-0 right-0 w-96 h-96 bg-orange-500/15 rounded-full blur-3xl pointer-events-none"></div>
         <div class="max-w-7xl mx-auto px-6 sm:px-8 relative z-10">
           <div class="max-w-3xl">
-            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-orange-500/20 text-orange-400 text-xs font-semibold uppercase tracking-wider mb-4 border border-orange-500/30">
-              <app-icon name="shield-check" customClass="w-3.5 h-3.5"></app-icon>
-              <span>{{ isAm() ? 'ስለ ዜነር ሆም ኃ.የተ.የግ.ማ' : 'About Zener Home P.L.C.' }}</span>
-            </div>
+            
             
             <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6 leading-tight">
               {{ isAm() ? '8+ ዓመታት በታማኝነት እና በጥራት' : '8+ Years Crafting Timeless Interiors in Ethiopia' }}
             </h1>
             
             <p class="text-base sm:text-lg text-white/80 leading-relaxed max-w-2xl">
-              Specialized in turnkey interior design solutions and construction for high-end residential luxury homes, boutique hotels, commercial offices, and custom furniture fabrication.
+              We design and craft custom furniture and complete interior finishes for luxury homes, boutique hotels, and offices across Ethiopia.
             </p>
           </div>
         </div>
@@ -37,7 +34,7 @@ import { IconComponent } from '../../shared/components/icon.component';
       
 
       <!-- 3. Story & Identity -->
-      <section class="py-20 bg-[#FDF6F0]">
+      <section class="py-20 bg-[#FDF6F0] dark:bg-[#262830]">
         <div class="max-w-7xl mx-auto px-6 sm:px-8">
           
           <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
@@ -45,16 +42,16 @@ import { IconComponent } from '../../shared/components/icon.component';
             <!-- Story Text -->
             <div class="lg:col-span-6 space-y-6">
               <span class="text-orange-500 font-semibold text-xs uppercase tracking-widest block">
-                Our Philosophy
+                Our Story & Promise
               </span>
-              <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-gray-900 leading-tight">
-                "We respect our client’s budget and established timeline."
+              <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-gray-900 dark:text-white leading-tight">
+                "We treat your home and budget with total respect."
               </h2>
-              <p class="text-gray-600 text-sm sm:text-base leading-relaxed">
-                At Zener Home P.L.C., we have achieved an unwavering reputation on the Ethiopian market for our ability to create luxurious, sophisticated interiors of timeless quality, extraordinary design, and flawless functionality — infused with each client’s personal lifestyle and aspirations.
+              <p class="text-gray-600 dark:text-gray-300 text-sm sm:text-base leading-relaxed">
+                At Zener Home P.L.C., we believe great interiors should be both stunning and practical. For over 8 years, our craftspeople, architects, and project managers have transformed empty structures into warm, functional homes tailored to how you actually live.
               </p>
-              <p class="text-gray-600 text-sm sm:text-base leading-relaxed">
-                Headquartered in Addis Ababa with active projects in Lebu, Bole, Tafo CCD Village, and Bishoftu (Debre Zeit), our multi-disciplinary team brings together senior interior architects, master woodworkers, and site engineers.
+              <p class="text-gray-600 dark:text-gray-300 text-sm sm:text-base leading-relaxed">
+                Based in Addis Ababa with ongoing projects across Lebu, Bole, Tafo CCD, and Bishoftu, we combine local mastery with world-class materials — from solid Wanza and Oak timber to precision German hardware.
               </p>
 
               <div class="grid grid-cols-2 sm:grid-cols-3 gap-6 pt-4">

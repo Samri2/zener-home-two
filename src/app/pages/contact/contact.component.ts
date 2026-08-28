@@ -16,10 +16,7 @@ import { IconComponent } from '../../shared/components/icon.component';
         <div class="absolute top-0 right-0 w-96 h-96 bg-orange-500/15 rounded-full blur-3xl pointer-events-none"></div>
         <div class="max-w-7xl mx-auto px-6 sm:px-8 relative z-10">
           <div class="max-w-3xl">
-            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-orange-500/20 text-orange-400 text-xs font-semibold uppercase tracking-wider mb-4 border border-orange-500/30">
-              <app-icon name="message-circle" customClass="w-3.5 h-3.5"></app-icon>
-              <span>{{ isAm() ? 'ይገናኙን • የነፃ አማካሪ ቀጠሮ' : 'Get in Touch • Consultations & Site Visits' }}</span>
-            </div>
+           
             
             <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6 leading-tight">
               {{ isAm() ? 'የህልም ቤትዎን አብረን እንገንባ' : "Let's Craft Your Next Masterpiece." }}
@@ -127,210 +124,31 @@ import { IconComponent } from '../../shared/components/icon.component';
                     href="https://facebook.com/zenerhome"
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="px-3.5 py-1.5 rounded-full bg-orange-50 hover:bg-orange-500 hover:text-white text-orange-700 text-xs font-semibold transition-colors"
+                    class="px-5 py-1.5 rounded-full bg-orange-50 hover:bg-orange-500 hover:text-white text-orange-700 text-ls font-semibold transition-colors"
                   >
-                    facebook.com/zenerhome
+                    Facebook
                   </a>
                   <a
                     href="https://instagram.com/zener_interior_solution"
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="px-3.5 py-1.5 rounded-full bg-orange-50 hover:bg-orange-500 hover:text-white text-orange-700 text-xs font-semibold transition-colors"
+                    class="px-5 py-1.5 rounded-full bg-orange-50 hover:bg-orange-500 hover:text-white text-orange-700 text-ls font-semibold transition-colors"
                   >
-                    &#64;zener_interior_solution
+                  Instagram
                   </a>
                   <a
                     href="https://tiktok.com/@zenerhome"
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="px-3.5 py-1.5 rounded-full bg-orange-50 hover:bg-orange-500 hover:text-white text-orange-700 text-xs font-semibold transition-colors"
+                    class="px-5 py-1.5 rounded-full bg-orange-50 hover:bg-orange-500 hover:text-white text-orange-700 text-ls font-semibold transition-colors"
                   >
-                    &#64;zenerhome
+                   Tiktok
                   </a>
                 </div>
               </div>
 
             </div>
 
-            <!-- Right: Interactive Consultation Form (7 Cols) -->
-            <div class="lg:col-span-7">
-              <div class="bg-white rounded-3xl p-8 sm:p-10 shadow-xl border border-orange-100 relative">
-                
-                @if (isSubmitted) {
-                  <div class="text-center py-12 space-y-6 animate-in zoom-in-95 duration-300">
-                    <div class="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto shadow-inner">
-                      <app-icon name="check-circle-2" customClass="w-10 h-10"></app-icon>
-                    </div>
-                    <div class="space-y-2">
-                      <h3 class="text-2xl font-bold text-gray-900">Thank You, {{ formState.name || 'Friend' }}!</h3>
-                      <p class="text-sm text-gray-600 max-w-md mx-auto leading-relaxed">
-                        Your inquiry regarding <strong class="text-gray-900">{{ formState.projectType }}</strong> has been received. A Zener Home project engineer will reach out within 24 hours.
-                      </p>
-                    </div>
-
-                    <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-3">
-                      <a
-                        [href]="whatsappUrl"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-3 rounded-full text-xs shadow-lg transition-all"
-                      >
-                        <app-icon name="message-circle" customClass="w-4 h-4"></app-icon>
-                        <span>Send via WhatsApp Now</span>
-                      </a>
-
-                      <button
-                        (click)="resetForm()"
-                        class="bg-gray-100 hover:bg-gray-200 text-gray-800 font-semibold px-6 py-3 rounded-full text-xs transition-colors"
-                      >
-                        Send Another Inquiry
-                      </button>
-                    </div>
-                  </div>
-                } @else {
-                  <form (ngSubmit)="handleSubmit()" class="space-y-6">
-                    <div>
-                      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-500/10 text-orange-600 text-xs font-semibold uppercase tracking-wider mb-2">
-                        <app-icon name="sparkles" customClass="w-3 h-3"></app-icon>
-                        <span>{{ isAm() ? 'የፕሮጀክት ዝርዝር' : 'Project Inquiry' }}</span>
-                      </div>
-                      <h3 class="text-2xl font-bold text-gray-900">
-                        {{ isAm() ? 'የነፃ ዋጋ እና የጣቢያ ጉብኝት ይጠይቁ' : 'Schedule a Site Visit & Estimate' }}
-                      </h3>
-                      <p class="text-xs text-gray-500 mt-1">
-                        Fill out the details below and we will prepare a tailored BOQ (Bill of Quantities) proposal.
-                      </p>
-                    </div>
-
-                    <!-- Name & Phone -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <div>
-                        <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">
-                          Your Full Name *
-                        </label>
-                        <input
-                          type="text"
-                          required
-                          placeholder="e.g. Abebe Kebede"
-                          [(ngModel)]="formState.name"
-                          name="name"
-                          class="w-full px-4 py-3 rounded-2xl bg-[#FDF6F0] border border-orange-200/80 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-orange-500"
-                        />
-                      </div>
-
-                      <div>
-                        <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">
-                          Phone Number (Ethiopia) *
-                        </label>
-                        <input
-                          type="tel"
-                          required
-                          placeholder="0911... or 0922..."
-                          [(ngModel)]="formState.phone"
-                          name="phone"
-                          class="w-full px-4 py-3 rounded-2xl bg-[#FDF6F0] border border-orange-200/80 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-orange-500"
-                        />
-                      </div>
-                    </div>
-
-                    <!-- Email & Location -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <div>
-                        <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">
-                          Email Address
-                        </label>
-                        <input
-                          type="email"
-                          placeholder="name@example.com"
-                          [(ngModel)]="formState.email"
-                          name="email"
-                          class="w-full px-4 py-3 rounded-2xl bg-[#FDF6F0] border border-orange-200/80 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-orange-500"
-                        />
-                      </div>
-
-                      <div>
-                        <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">
-                          Site Location / Subcity *
-                        </label>
-                        <input
-                          type="text"
-                          required
-                          placeholder="e.g. Bole, Lebu, Tafo, Bishoftu"
-                          [(ngModel)]="formState.location"
-                          name="location"
-                          class="w-full px-4 py-3 rounded-2xl bg-[#FDF6F0] border border-orange-200/80 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-orange-500"
-                        />
-                      </div>
-                    </div>
-
-                    <!-- Project Type & Approx Size -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <div>
-                        <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">
-                          Project Scope
-                        </label>
-                        <select
-                          [(ngModel)]="formState.projectType"
-                          name="projectType"
-                          class="w-full px-4 py-3 rounded-2xl bg-[#FDF6F0] border border-orange-200/80 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-orange-500"
-                        >
-                          <option value="Residential Villa">Luxury Residential Villa</option>
-                          <option value="Apartment Finishing">Apartment Turnkey Finishing</option>
-                          <option value="Hotel & Banquet Hall">Hotel & Banquet Hall</option>
-                          <option value="Commercial Office / EBC">Corporate / Commercial Space</option>
-                          <option value="Beauty Spa / Salon">Spa & Salon Interior</option>
-                          <option value="Custom Furniture Fabrication">Custom Furniture & Woodworks</option>
-                          <option value="Gypsum & False Ceiling">Gypsum & False Ceiling Lighting</option>
-                        </select>
-                      </div>
-
-                      <div>
-                        <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">
-                          Estimated Area (m²) / Timeline
-                        </label>
-                        <input
-                          type="text"
-                          placeholder="e.g. 250 m² • Immediate / 1 Month"
-                          [(ngModel)]="formState.areaSize"
-                          name="areaSize"
-                          class="w-full px-4 py-3 rounded-2xl bg-[#FDF6F0] border border-orange-200/80 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-orange-500"
-                        />
-                      </div>
-                    </div>
-
-                    <!-- Message Details -->
-                    <div>
-                      <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">
-                        Project Details & Requirements
-                      </label>
-                      <textarea
-                        rows="4"
-                        placeholder="Describe your design preferences, wood choice, lighting requirements, or timeline..."
-                        [(ngModel)]="formState.message"
-                        name="message"
-                        class="w-full px-4 py-3 rounded-2xl bg-[#FDF6F0] border border-orange-200/80 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-orange-500 resize-none"
-                      ></textarea>
-                    </div>
-
-                    <!-- Submit Button -->
-                    <button
-                      type="submit"
-                      [disabled]="loading"
-                      class="w-full bg-[#CC4C0F] hover:bg-[#B33E08] text-white font-bold py-4 rounded-full text-sm shadow-xl shadow-orange-500/25 transition-all flex items-center justify-center gap-2 transform hover:-translate-y-0.5 disabled:opacity-50"
-                    >
-                      @if (loading) {
-                        <span>Submitting Request...</span>
-                      } @else {
-                        <span>Submit Request for Quotation</span>
-                        <app-icon name="arrow-right" customClass="w-4 h-4"></app-icon>
-                      }
-                    </button>
-
-                  </form>
-                }
-
-              </div>
-            </div>
 
           </div>
         </div>

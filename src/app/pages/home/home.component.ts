@@ -172,10 +172,7 @@ import { ProjectItem } from '../../core/data/projects';
         <div class="max-w-7xl mx-auto px-6 sm:px-8 relative z-10">
           <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div class="lg:col-span-8 space-y-4">
-              <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-orange-500/20 text-orange-400 text-xs font-semibold uppercase tracking-wider">
-                <app-icon name="sparkles" customClass="w-3.5 h-3.5"></app-icon>
-                <span>{{ isAm() ? 'የነፃ አማካሪ ቀጠሮ ይያዙ' : 'Free On-Site Consultation' }}</span>
-              </div>
+              
               <h2 class="text-3xl sm:text-4xl font-bold tracking-tight">
                 {{ isAm() ? 'የህልም ቤትዎን አብረን እንገንባ' : 'Ready to Transform Your Villa or Commercial Space?' }}
               </h2>

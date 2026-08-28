@@ -20,11 +20,7 @@ import { ProductItem } from '../../core/data/products';
         <div class="absolute top-0 right-0 w-96 h-96 bg-orange-500/15 rounded-full blur-3xl pointer-events-none"></div>
         <div class="max-w-7xl mx-auto px-6 sm:px-8 relative z-10">
           <div class="max-w-3xl">
-            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-orange-500/20 text-orange-400 text-xs font-semibold uppercase tracking-wider mb-4 border border-orange-500/30">
-              <app-icon name="armchair" customClass="w-3.5 h-3.5"></app-icon>
-              <span>{{ isAm() ? 'የዜነር ፈርኒቸር እና የእንጨት ስራዎች' : 'Zener Luxury Furniture & Woodcraft Atelier' }}</span>
-            </div>
-            
+
             <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6 leading-tight">
               {{ isAm() ? 'ለቤትዎ የሚመጥን የቅንጦት ፈርኒቸር' : 'Solid Hardwood & Tactile Custom Furniture' }}
             </h1>
