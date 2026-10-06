@@ -25,24 +25,6 @@ import { ProductItem } from '../../core/data/products';
               {{ isAm() ? 'ለቤትዎ የሚመጥን የቅንጦት ፈርኒቸር' : 'Solid Hardwood & Tactile Custom Furniture' }}
             </h1>
             
-            <p class="text-base sm:text-lg text-white/80 leading-relaxed max-w-2xl mb-8">
-              Explore our 20+ signature handcrafted collections: solid Wanza dining suites, curved bouclé sofas, acoustic TV media walls, luxury master bedrooms, and pivot doors fabricated in our Addis Ababa carpentry atelier.
-            </p>
-
-            <div class="flex flex-wrap items-center gap-4 text-xs font-medium text-white/90">
-              <div class="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full border border-white/15">
-                <app-icon name="shield" customClass="w-4 h-4 text-orange-400"></app-icon>
-                <span>Solid Timber Quality Warranty</span>
-              </div>
-              <div class="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full border border-white/15">
-                <app-icon name="ruler" customClass="w-4 h-4 text-orange-400"></app-icon>
-                <span>Custom Dimensions Tailored for Your Space</span>
-              </div>
-              <div class="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full border border-white/15">
-                <app-icon name="sparkles" customClass="w-4 h-4 text-orange-400"></app-icon>
-                <span>20 Authentic Handcrafted Collections</span>
-              </div>
-            </div>
           </div>
         </div>
       </section>
@@ -230,9 +212,52 @@ import { ProductItem } from '../../core/data/products';
   `
 })
 export class FurniturePageComponent {
-  private translation = inject(TranslationService);
-  private productsService = inject(ProductsService);
-  private modalService = inject(ModalService);
+  private readonly translation = inject(TranslationService);
+  private readonly productsService = inject(ProductsService);
+  private readonly modalService = inject(ModalService);
+
+  private readonly furnitureImages: Partial<Record<ProductItem['category'], string[]>> = {
+    dining: [
+      '/img/furniture/dinner%20tables/480299973_954933783420278_4059268896424422720_n.jpg',
+      '/img/furniture/dinner%20tables/480595732_954933596753630_6132239701192075785_n.jpg',
+      '/img/furniture/dinner%20tables/480635686_954933580086965_9126484261443232117_n.jpg',
+      '/img/furniture/dinner%20tables/505455407_1037282205185435_2805103354904573869_n.jpg',
+      '/img/furniture/dinner%20tables/505467471_1037282201852102_9141265167285217426_n.jpg'
+    ],
+    bedroom: [
+      '/img/furniture/dressing/505097096_1037282208518768_6333783260645026840_n.jpg',
+      '/img/furniture/dressing/505498688_1037282045185451_4303005874538586769_n.jpg',
+      '/img/furniture/dressing/505646020_1037282188518770_4018877894537956610_n.jpg'
+    ],
+    kitchen: [
+      '/img/furniture/kitchen%20cabinet/487795115_986860200227636_3846467532084719529_n.jpg',
+      '/img/furniture/kitchen%20cabinet/505101590_1037282125185443_1365941244302220423_n.jpg',
+      '/img/furniture/kitchen%20cabinet/505314473_1037281888518800_7633163975674527449_n.jpg',
+      '/img/furniture/kitchen%20cabinet/505443433_1037281885185467_7037443109299227580_n.jpg',
+      '/img/furniture/kitchen%20cabinet/505527928_1037282031852119_3621411194560081163_n.jpg'
+    ],
+    living: [
+      '/img/furniture/sofa/480662691_954933886753601_5195555920537725057_n.jpg',
+      '/img/furniture/sofa/481775742_961178266129163_6096344717881106754_n.jpg',
+      '/img/furniture/sofa/482008493_961178249462498_844907421085063382_n.jpg',
+      '/img/furniture/sofa/487786759_986863030227353_3352402255649789315_n.jpg',
+      '/img/furniture/sofa/487826473_986859320227724_4411590202118822842_n.jpg'
+    ],
+    'tv-units': [
+      '/img/furniture/tv%20wall/491797351_1000452552201734_5425406021212532_n.jpg',
+      '/img/furniture/tv%20wall/491798076_1000452422201747_8881232839329127134_n.jpg',
+      '/img/furniture/tv%20wall/491834365_1000452578868398_3018263687028542762_n.jpg',
+      '/img/furniture/tv%20wall/505310698_1037281898518799_8829021523765007636_n.jpg'
+    ]
+  };
+
+  private readonly folderCategoryLabels: Partial<Record<ProductItem['category'], string>> = {
+    dining: 'Dinner Tables',
+    living: 'Sofa',
+    'tv-units': 'TV Wall',
+    bedroom: 'Dressing',
+    kitchen: 'Kitchen Cabinet'
+  };
 
   readonly isAm = this.translation.isAmharic;
   searchQuery = '';
@@ -242,12 +267,11 @@ export class FurniturePageComponent {
     const isAm = this.isAm();
     return [
       { id: 'all', label: isAm ? 'ሁሉም ፈርኒቸሮች (20)' : 'All Furniture (20)' },
-      { id: 'dining', label: isAm ? 'የመመገቢያ ጠረጴዛዎች' : 'Dining Sets & Tables' },
-      { id: 'living', label: isAm ? 'የሳሎን ሶፋዎች' : 'Living Room & Sofas' },
-      { id: 'tv-units', label: isAm ? 'የቲቪ ግድግዳ እና ካቢኔት' : 'TV & Media Wall Units' },
-      { id: 'bedroom', label: isAm ? 'የመኝታ ክፍል አልጋዎች' : 'Master Bedroom Suites' },
-      { id: 'kitchen', label: isAm ? 'የወጥ ቤት ካቢኔቶች' : 'Custom Kitchens' },
-      { id: 'doors', label: isAm ? 'በሮች እና ከፋዮች' : 'Doors & Partitions' },
+      { id: 'dining', label: isAm ? 'የመመገቢያ ጠረጴዛዎች' : 'Dinner Tables' },
+      { id: 'living', label: isAm ? 'የሳሎን ሶፋዎች' : 'Sofa' },
+      { id: 'tv-units', label: isAm ? 'የቲቪ ግድግዳ እና ካቢኔት' : 'TV Wall' },
+      { id: 'bedroom', label: isAm ? 'የመኝታ ክፍል አልጋዎች' : 'Dressing' },
+      { id: 'kitchen', label: isAm ? 'የወጥ ቤት ካቢኔቶች' : 'Kitchen Cabinet' },
     ];
   });
 
@@ -256,14 +280,29 @@ export class FurniturePageComponent {
     const cat = this.selectedCategory();
     const all = this.productsService.getProducts();
 
-    return all.filter((item) => {
+    const filtered = all.filter((item) => {
       const matchesSearch = !query ||
         item.name.toLowerCase().includes(query) ||
         item.description.toLowerCase().includes(query) ||
-        (item.categoryLabel && item.categoryLabel.toLowerCase().includes(query)) ||
-        (item.woodType && item.woodType.toLowerCase().includes(query));
+        item.categoryLabel?.toLowerCase().includes(query) ||
+        item.woodType?.toLowerCase().includes(query);
       const matchesCategory = cat === 'all' || item.category === cat;
       return matchesSearch && matchesCategory;
+    });
+
+    const imageIndexes: Partial<Record<ProductItem['category'], number>> = {};
+    return filtered.map((item) => {
+      const images = this.furnitureImages[item.category];
+      if (!images?.length) return item;
+
+      const index = imageIndexes[item.category] ?? 0;
+      imageIndexes[item.category] = index + 1;
+      return {
+        ...item,
+        categoryLabel: this.folderCategoryLabels[item.category] ?? item.categoryLabel,
+        image: images[index % images.length],
+        gallery: images
+      };
     });
   });
 

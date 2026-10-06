@@ -18,17 +18,17 @@ type ProjectCategory = 'residence' | 'commercial' | 'hotel';
     <div class="space-y-0 animate-in fade-in duration-300">
       
       <!-- 1. Category-led portfolio hero -->
-      <section class="relative min-h-[560px] overflow-hidden bg-[#171714] text-white sm:min-h-[620px]">
+      <section class="relative min-h-[560px] overflow-hidden bg-gradient-to-br from-[#1A1A1A] via-[#2D211C] to-[#1A1A1A] text-white sm:min-h-[620px]">
         <img
           [src]="activeHeroImage()"
           [alt]="activeCategory().label + ' project'"
-          class="absolute inset-0 h-full w-full object-cover transition-opacity duration-500"
+          class="absolute inset-0 h-full w-full object-cover opacity-20 transition-opacity duration-500"
         />
-        <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/45 to-black/10"></div>
+        <div class="absolute inset-0 bg-gradient-to-br from-[#1A1A1A]/75 via-[#2D211C]/70 to-[#1A1A1A]/80"></div>
+        <div class="absolute top-0 right-0 h-96 w-96 rounded-full bg-orange-500/15 blur-3xl pointer-events-none"></div>
 
         <div class="relative mx-auto flex min-h-[560px] max-w-7xl flex-col justify-between px-6 py-12 sm:min-h-[620px] sm:px-8 sm:py-16">
           <div class="max-w-2xl pt-8 sm:pt-12">
-            <span class="mb-4 block text-xs font-semibold uppercase tracking-[0.18em] text-orange-300">Zener Interior Solutions</span>
             <h1 class="mb-5 text-4xl font-bold leading-tight sm:text-5xl lg:text-6xl">
               {{ activeCategory().label }} Projects
             </h1>
@@ -199,9 +199,9 @@ type ProjectCategory = 'residence' | 'commercial' | 'hotel';
   `
 })
 export class ProjectsPageComponent {
-  private translation = inject(TranslationService);
-  private projectsService = inject(ProjectsService);
-  private modalService = inject(ModalService);
+  private readonly translation = inject(TranslationService);
+  private readonly projectsService = inject(ProjectsService);
+  private readonly modalService = inject(ModalService);
 
   readonly isAm = this.translation.isAmharic;
   readonly activeFilter = signal<ProjectCategory>('residence');
@@ -230,7 +230,7 @@ export class ProjectsPageComponent {
           '/img/site%2010/481999700_963857619194561_5057454708152355117_n.jpg',
           '/img/490081170_992303406349982_3268294090849058908_n.jpg'
         ]
-      }
+      },
     ];
   });
 

@@ -46,8 +46,6 @@ import { CommonModule } from '@angular/common';
         <span class="separator">&bull;</span>
         <span class="item">Architectural Millwork</span>
         <span class="separator">&bull;</span>
-        <span class="item">Bespoke Furniture</span>
-        <span class="separator">&bull;</span>
         <span class="item">Turnkey Interiors</span>
         <span class="separator">&bull;</span>
         <span class="item">Acoustic Paneling</span>
@@ -56,8 +54,6 @@ import { CommonModule } from '@angular/common';
         <span class="item">Custom Joinery</span>
         <span class="separator">&bull;</span>
         <span class="item">Architectural Millwork</span>
-        <span class="separator">&bull;</span>
-        <span class="item">Bespoke Furniture</span>
         <span class="separator">&bull;</span>
         <span class="item">Turnkey Interiors</span>
         <span class="separator">&bull;</span>
