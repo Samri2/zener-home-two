@@ -8,6 +8,8 @@ import { IconComponent } from '../../shared/components/icon.component';
 import { VideoShowcaseComponent } from '../../components/video-showcase.component';
 import { ProjectItem } from '../../core/data/projects';
 
+type ProjectCategory = 'residence' | 'commercial' | 'hotel';
+
 @Component({
   selector: 'app-projects-page',
   standalone: true,
@@ -15,39 +17,65 @@ import { ProjectItem } from '../../core/data/projects';
   template: `
     <div class="space-y-0 animate-in fade-in duration-300">
       
-      <!-- 1. Page Header Banner -->
-      <section class="relative py-20 bg-gradient-to-br from-[#1A1A1A] via-[#2A221E] to-[#1A1A1A] text-white overflow-hidden">
-        <div class="absolute top-0 right-0 w-96 h-96 bg-orange-500/15 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="absolute bottom-0 left-1/4 w-80 h-80 bg-orange-600/10 rounded-full blur-3xl pointer-events-none"></div>
-        
-        <div class="max-w-7xl mx-auto px-6 sm:px-8 relative z-10">
-          <div class="max-w-3xl">
-            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6 leading-tight">
-              {{ isAm() ? 'የተከናወኑ የፊኒሺንግ እና ዲዛይን ፕሮጀክቶች' : 'Architectural Precision & Luxury Finishing' }}
-            </h1>
-            
-            <p class="text-base sm:text-lg text-white/80 leading-relaxed max-w-2xl mb-8">
-              Explore our 150+ completed luxury villa residences, corporate headquarters (EBC), hotel banquets (Menanda Hotel Bishoftu), high-rise apartments, and live on-site construction walkthroughs across Ethiopia.
-            </p>
+      <!-- 1. Category-led portfolio hero -->
+      <section class="relative min-h-[560px] overflow-hidden bg-[#171714] text-white sm:min-h-[620px]">
+        <img
+          [src]="activeHeroImage()"
+          [alt]="activeCategory().label + ' project'"
+          class="absolute inset-0 h-full w-full object-cover transition-opacity duration-500"
+        />
+        <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/45 to-black/10"></div>
 
-            <div class="flex flex-wrap items-center gap-4 text-xs font-medium text-white/90">
-              <div class="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full border border-white/15">
-                <app-icon name="shield-check" customClass="w-4 h-4 text-orange-400"></app-icon>
-                <span>8+ Years Verified Experience</span>
-              </div>
-              <div class="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full border border-white/15">
-                <app-icon name="check-circle-2" customClass="w-4 h-4 text-orange-400"></app-icon>
-                <span>150+ Handed-over Sites</span>
-              </div>
-              <div class="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full border border-white/15">
-                <app-icon name="hammer" customClass="w-4 h-4 text-orange-400"></app-icon>
-                <span>Real Job Site Construction Progress</span>
-              </div>
-              <div class="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full border border-white/15">
-                <app-icon name="film" customClass="w-4 h-4 text-orange-400"></app-icon>
-                <span>Job Site Video Reels</span>
-              </div>
+        <div class="relative mx-auto flex min-h-[560px] max-w-7xl flex-col justify-between px-6 py-12 sm:min-h-[620px] sm:px-8 sm:py-16">
+          <div class="max-w-2xl pt-8 sm:pt-12">
+            <span class="mb-4 block text-xs font-semibold uppercase tracking-[0.18em] text-orange-300">Zener Interior Solutions</span>
+            <h1 class="mb-5 text-4xl font-bold leading-tight sm:text-5xl lg:text-6xl">
+              {{ activeCategory().label }} Projects
+            </h1>
+            <p class="max-w-xl text-sm leading-relaxed text-white/85 sm:text-base">
+              Explore our {{ activeCategory().label.toLowerCase() }} work across Addis Ababa and beyond.
+            </p>
+          </div>
+
+          <div class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+            <div class="flex flex-wrap gap-2" role="tablist" aria-label="Project categories">
+              @for (category of categories(); track category.id) {
+                <button
+                  type="button"
+                  role="tab"
+                  [attr.aria-selected]="activeFilter() === category.id"
+                  (click)="selectCategory(category.id)"
+                  class="border px-5 py-3 text-sm font-semibold transition-colors"
+                  [ngClass]="activeFilter() === category.id ? 'border-white bg-white text-[#171714]' : 'border-white/50 bg-black/20 text-white hover:bg-white/15'"
+                >
+                  {{ category.label }}
+                </button>
+              }
             </div>
+
+            @if (activeCategory().slides.length > 1) {
+              <div class="flex items-center gap-2 self-end" aria-label="Hero image controls">
+                <button
+                  type="button"
+                  (click)="changeHeroSlide(-1)"
+                  aria-label="Previous project image"
+                  class="flex h-11 w-11 items-center justify-center border border-white/60 bg-black/20 text-xl transition-colors hover:bg-white hover:text-black"
+                >
+                  &#8592;
+                </button>
+                <span class="min-w-12 text-center text-xs font-semibold tabular-nums">
+                  {{ heroSlideIndex() + 1 }} / {{ activeCategory().slides.length }}
+                </span>
+                <button
+                  type="button"
+                  (click)="changeHeroSlide(1)"
+                  aria-label="Next project image"
+                  class="flex h-11 w-11 items-center justify-center border border-white/60 bg-black/20 text-xl transition-colors hover:bg-white hover:text-black"
+                >
+                  &#8594;
+                </button>
+              </div>
+            }
           </div>
         </div>
       </section>
@@ -58,25 +86,10 @@ import { ProjectItem } from '../../core/data/projects';
           
           <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
             <div>
-              <span class="text-orange-500 font-semibold text-xs uppercase tracking-widest block mb-1">
-                {{ isAm() ? 'ምድቦች' : 'Portfolio Filter' }}
-              </span>
+              <span class="text-orange-500 font-semibold text-xs uppercase tracking-widest block mb-1">{{ activeCategory().label }}</span>
               <h2 class="text-2xl sm:text-3xl font-bold text-gray-900">
-                {{ isAm() ? 'የፕሮጀክቶች ማውጫ' : 'Browse Completed Sites & Active Projects' }}
+                {{ activeCategory().label }} Projects
               </h2>
-            </div>
-
-            <!-- Filter Pills -->
-            <div class="flex flex-wrap items-center gap-2">
-              @for (cat of categories(); track cat.id) {
-                <button
-                  (click)="activeFilter.set(cat.id)"
-                  class="px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all duration-200"
-                  [ngClass]="activeFilter() === cat.id ? 'bg-[#CC4C0F] text-white shadow-md shadow-orange-500/25' : 'bg-white text-gray-700 hover:bg-orange-50 hover:text-orange-600 border border-orange-200/60'"
-                >
-                  {{ cat.label }}
-                </button>
-              }
             </div>
           </div>
 
@@ -191,26 +204,66 @@ export class ProjectsPageComponent {
   private modalService = inject(ModalService);
 
   readonly isAm = this.translation.isAmharic;
-  readonly activeFilter = signal<string>('all');
+  readonly activeFilter = signal<ProjectCategory>('residence');
+  readonly heroSlideIndex = signal(0);
 
   readonly categories = computed(() => {
     const isAm = this.isAm();
     return [
-      { id: 'all', label: isAm ? 'ሁሉም ፕሮጀክቶች (12)' : 'All Projects (12)' },
-      { id: 'residential', label: isAm ? 'የመኖሪያ ቪላዎች' : 'Luxury Villas' },
-      { id: 'commercial', label: isAm ? 'ኮርፖሬት እና ኢቢሲ' : 'Corporate & Media' },
-      { id: 'hospitality', label: isAm ? 'ሆቴሎች እና አዳራሾች' : 'Hotels & Banquets' },
-      { id: 'apartment', label: isAm ? 'አፓርታማዎች' : 'Apartments' },
-      { id: 'construction', label: isAm ? 'የስራ ሂደት ፎቶዎች' : 'On-Site Construction' },
+      {
+        id: 'residence' as const,
+        label: isAm ? 'መኖሪያ' : 'Residence',
+        slides: ['/img/site%201/475309774_940883151492008_1253919612611226890_n.jpg']
+      },
+      {
+        id: 'commercial' as const,
+        label: isAm ? 'ንግድ' : 'Commercial',
+        slides: [
+          '/img/site%202/475657750_943204924593164_535887438606507841_n.jpg',
+          '/img/489050096_992303353016654_2276759780354741544_n.jpg'
+        ]
+      },
+      {
+        id: 'hotel' as const,
+        label: isAm ? 'ሆቴል' : 'Hotel',
+        slides: [
+          '/img/site%2010/481999700_963857619194561_5057454708152355117_n.jpg',
+          '/img/490081170_992303406349982_3268294090849058908_n.jpg'
+        ]
+      }
     ];
   });
 
+  readonly activeCategory = computed(() => this.categories().find(category => category.id === this.activeFilter())!);
+  readonly activeHeroImage = computed(() => this.activeCategory().slides[this.heroSlideIndex()]);
+
   readonly filteredProjects = computed(() => {
-    const filter = this.activeFilter();
-    const all = this.projectsService.getProjects();
-    if (filter === 'all') return all;
-    return all.filter(p => p.category === filter);
+    const projectIds: Record<ProjectCategory, string[]> = {
+      residence: [
+        'bole-bulbula-residential-site-01',
+        'chichinia-area-residential-site-03',
+        'megenagna-luxury-apartment-site-06',
+        'site-08-flagship-villa-estate',
+        'addisu-gebeya-family-apartment-site-09'
+      ],
+      commercial: ['ebc-headquarters-atrium', 'bulbula-mazoria-villa-site-02'],
+      hotel: ['mahi-spa-beauty-salon-site-10']
+    };
+    const projectsById = new Map(this.projectsService.getProjects().map(project => [project.id, project]));
+    return projectIds[this.activeFilter()]
+      .map(id => projectsById.get(id))
+      .filter((project): project is ProjectItem => project !== undefined);
   });
+
+  selectCategory(category: ProjectCategory): void {
+    this.activeFilter.set(category);
+    this.heroSlideIndex.set(0);
+  }
+
+  changeHeroSlide(direction: number): void {
+    const slideCount = this.activeCategory().slides.length;
+    this.heroSlideIndex.update(index => (index + direction + slideCount) % slideCount);
+  }
 
   selectProject(project: ProjectItem): void {
     this.modalService.openProjectDetail(project);

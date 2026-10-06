@@ -1,252 +1,318 @@
-import { Component, inject, signal, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
+import {
+  Component, inject, signal, ViewChild, ElementRef,
+  AfterViewInit, OnDestroy, HostListener
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule, NavigationEnd } from '@angular/router';
 import { TranslationService } from '../core/services/translation.service';
-import { ThemeService } from '../core/services/theme.service';
-import { IconComponent } from '../shared/components/icon.component';
 import { BrandLogoComponent } from '../shared/components/brand-logo.component';
 import { filter } from 'rxjs/operators';
+import { liquidGlass } from '../core/utils/liquid-glass';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule, RouterModule, IconComponent, BrandLogoComponent],
+  imports: [CommonModule, RouterModule, BrandLogoComponent],
   styles: [`
-    :host {
-      display: block;
-      width: 100%;
-    }
-    .navbar-spacer {
-      display: block !important;
-      height: var(--navbar-height, 76px) !important;
-      min-height: var(--navbar-height, 76px) !important;
-      width: 100%;
+    /* =========================================
+       HORIZONTAL NAV LINKS (Always visible in navbar)
+       ========================================= */
+    .nav-item {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 12px;
+      border-radius: 9999px;
+      color: rgba(255, 255, 255, 0.92);
+      font-size: 0.85rem;
+      font-weight: 600;
+      white-space: nowrap;
+      text-decoration: none;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.85), 0 0 10px rgba(0, 0, 0, 0.6);
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
       flex-shrink: 0;
-      pointer-events: none;
     }
-    @media (max-width: 1023px) {
-      .navbar-spacer {
-        height: var(--navbar-height, 76px) !important;
-        min-height: var(--navbar-height, 76px) !important;
+
+    @media (min-width: 640px) {
+      .nav-item {
+        padding: 6px 14px;
+        font-size: 0.875rem;
       }
     }
-    @media (max-width: 640px) {
-      .navbar-spacer {
-        height: var(--navbar-height, 76px) !important;
-        min-height: var(--navbar-height, 76px) !important;
+
+    @media (min-width: 1024px) {
+      .nav-item {
+        padding: 7px 16px;
+        font-size: 0.92rem;
+      }
+    }
+
+    .nav-item:hover {
+      color: #FF8C42;
+      background: rgba(255, 255, 255, 0.12);
+      transform: translateY(-1px);
+    }
+
+    /* Active page: orange text with glowing badge highlight */
+    .nav-item.active-link {
+      color: #FF7A3D;
+      background: rgba(255, 122, 61, 0.18);
+      box-shadow: inset 0 0 0 1px rgba(255, 122, 61, 0.4), 0 2px 10px rgba(255, 122, 61, 0.25);
+      font-weight: 700;
+    }
+
+    /* Tap / Click state feedback */
+    .nav-item:active {
+      transform: scale(0.94);
+      filter: brightness(1.2);
+      box-shadow: 0 0 14px rgba(255, 122, 61, 0.6);
+    }
+
+    /* =========================================
+       INTERACTIVE BUTTON FEEDBACK
+       ========================================= */
+    .btn-feedback {
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+    .btn-feedback:hover {
+      transform: translateY(-1px);
+    }
+    .btn-feedback:active {
+      transform: scale(0.93) !important;
+      filter: brightness(1.25);
+    }
+
+    .btn-cta {
+      background: linear-gradient(135deg, #CC4C0F 0%, #E55C1A 100%);
+      color: #FFFFFF;
+      box-shadow: 0 6px 18px rgba(204, 76, 15, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+    }
+    .btn-cta:hover {
+      background: linear-gradient(135deg, #E55C1A 0%, #FF7A3D 100%);
+      box-shadow: 0 8px 22px rgba(229, 92, 26, 0.55), inset 0 1px 1px rgba(255, 255, 255, 0.6);
+    }
+    .btn-cta:active {
+      box-shadow: 0 0 18px rgba(255, 122, 61, 0.8) !important;
+    }
+
+    /* =========================================
+       LANGUAGE DROPDOWN
+       ========================================= */
+    .lang-dropdown {
+      position: absolute;
+      top: calc(100% + 10px);
+      right: 0;
+      min-width: 140px;
+      border-radius: 18px;
+      overflow: hidden;
+      padding: 6px;
+      z-index: 200;
+      animation: glassSlideIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .lang-option {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.9);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.18s ease;
+      white-space: nowrap;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+    }
+    .lang-option:hover {
+      background: rgba(255, 255, 255, 0.14);
+      color: #FFFFFF;
+      transform: translateX(2px);
+    }
+    .lang-option.active {
+      color: #FF7A3D;
+      background: rgba(255, 122, 61, 0.18);
+      font-weight: 700;
+    }
+    .lang-option:active {
+      transform: scale(0.96);
+    }
+
+    @keyframes glassSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-8px) scale(0.97);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
       }
     }
   `],
   template: `
-    <!-- 1. Single Unified Fixed Frozen Glass Header -->
-    <header 
-      #navbarHeader
-      class="navbar-header fixed top-0 left-0 right-0 z-50 w-full transition-all duration-300 glass-nav border-b border-[#F0E6DD]/80 shadow-sm"
+    <!-- Floating Frosted Glass Navbar Wrapper -->
+    <header
+      class="fixed top-0 left-0 right-0 z-50 w-full pt-3 sm:pt-4 px-2 sm:px-6 lg:px-12"
+      style="pointer-events: none;"
     >
-      <div class="w-full px-4 sm:px-8 lg:px-12 py-3 flex items-center justify-between">
-        
-        <!-- Left: Brand Logo & Wordmark -->
-        <a 
+      <!-- Main Frosted Glass Pill with Horizontal Layout -->
+      <div
+        #glassContainer
+        class="liquid-glass rounded-full px-3 sm:px-6 lg:px-8 py-2.5 sm:py-3 flex items-center justify-between max-w-7xl mx-auto relative gap-2 sm:gap-4"
+        style="pointer-events: auto;"
+      >
+        <!-- ── Left: Brand Logo ── -->
+        <a
           routerLink="/"
           (click)="scrollToTop()"
-          class="flex items-center text-left focus:outline-none"
+          class="flex items-center flex-shrink-0 btn-feedback"
+          style="text-decoration: none;"
         >
           <app-brand-logo></app-brand-logo>
         </a>
 
-        <!-- Center: Navigation Links Pill Container (Desktop) -->
-        <nav class="hidden lg:flex items-center p-1.5 rounded-full border border-orange-300/80 bg-[#FDF6F0]/60 dark:bg-white/10 shadow-[0_1px_3px_rgba(0,0,0,0.02)]">
-          @for (link of navLinks(); track link.id) {
+        <!-- ── Center: Horizontal Navigation Links (Always on Navbar) ── -->
+        <nav class="flex items-center gap-1 sm:gap-2 lg:gap-3 flex-1 justify-center overflow-x-auto scrollbar-none mx-1 sm:mx-3 py-0.5">
+          @for (link of navLinks; track link.id) {
             <a
               [routerLink]="link.path"
-              [routerLinkActive]="'bg-[#CC4C0F] text-white font-bold shadow-sm'"
+              routerLinkActive="active-link"
               [routerLinkActiveOptions]="{ exact: link.exact }"
-              class="px-6 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all duration-200 text-[#2D3748] dark:text-white hover:text-[#CC4C0F] dark:hover:text-[#FF783E]"
+              class="nav-item"
             >
-              {{ link.name }}
+              {{ isAm() ? link.nameAm : link.nameEn }}
             </a>
           }
         </nav>
 
-        <!-- Right Controls: Theme, Language, Get in Touch & Mobile Toggle -->
-        <div class="flex items-center gap-2.5 sm:gap-4">
-          
-          <!-- Light / Dark Mode Toggle Button -->
-          <button
-            (click)="toggleTheme()"
-            class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#FDF6F0] dark:bg-[#2A2A2A] hover:bg-orange-100 dark:hover:bg-[#383838] text-gray-800 dark:text-white border border-orange-200/60 dark:border-white/10 transition-colors shadow-sm"
-            [attr.aria-label]="isDark() ? 'Switch to Light Mode' : 'Switch to Dark Mode'"
-            [title]="isDark() ? 'Light Mode' : 'Dark Mode'"
-          >
-            <app-icon [name]="isDark() ? 'sun' : 'moon'" customClass="w-4 h-4 text-orange-500"></app-icon>
-          </button>
+        <!-- ── Right: Language Dropdown + CTA ── -->
+        <div class="flex items-center gap-2 sm:gap-3 flex-shrink-0">
 
-          <!-- Language Switcher Pill -->
-          <button
-            (click)="toggleLang()"
-            class="inline-flex items-center gap-1.5 bg-[#FDF6F0] dark:bg-[#2A2A2A] hover:bg-orange-100 dark:hover:bg-[#333333] text-gray-800 dark:text-white px-3 py-1.5 rounded-full text-[11px] font-semibold border border-orange-200/60 dark:border-white/10 transition-colors shadow-sm"
-            aria-label="Toggle language"
-          >
-            <app-icon name="globe" customClass="w-3.5 h-3.5 text-[#CC4C0F]"></app-icon>
-            <span>{{ isAm() ? 'English' : 'አማርኛ' }}</span>
-          </button>
-
-          <!-- Right Action Button: Get in Touch (Desktop) -->
-          <div class="hidden sm:flex items-center">
-            <a
-              routerLink="/contact"
-              class="inline-flex items-center gap-2 bg-[#CC4C0F] hover:bg-[#B33E08] text-white text-xs sm:text-sm font-bold px-5 py-2.5 rounded-full shadow-md shadow-orange-500/25 transition-all duration-200 transform hover:-translate-y-0.5"
+          <!-- Language Selector Dropdown -->
+          <div class="relative">
+            <button
+              (click)="langOpen.update(v => !v)"
+              class="btn-feedback flex items-center gap-1.5 bg-white/10 hover:bg-white/20 border border-white/25 text-white px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-bold shadow-md cursor-pointer"
+              style="text-shadow: 0 1px 3px rgba(0,0,0,0.8);"
+              aria-label="Language selector"
             >
-              <app-icon name="message-square" customClass="w-4 h-4"></app-icon>
-              <span>{{ isAm() ? 'ይገናኙን' : 'Get in Touch' }}</span>
-            </a>
+              <span class="text-[#FF7A3D] font-extrabold">•</span>
+              <span>{{ isAm() ? 'AM' : 'EN' }}</span>
+              <svg
+                width="11"
+                height="11"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                [style.transform]="langOpen() ? 'rotate(180deg)' : 'rotate(0)'"
+                style="transition: transform 0.22s ease; margin-left: 2px;"
+              >
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/>
+              </svg>
+            </button>
+
+            <!-- Language Dropdown Panel -->
+            @if (langOpen()) {
+              <div class="lang-dropdown liquid-glass">
+                <div
+                  class="lang-option"
+                  [class.active]="!isAm()"
+                  (click)="setLang('en')"
+                >
+                  <span class="text-base">🇺🇸</span>
+                  <span>English</span>
+                </div>
+                <div
+                  class="lang-option"
+                  [class.active]="isAm()"
+                  (click)="setLang('am')"
+                >
+                  <span class="text-base">🇪🇹</span>
+                  <span>አማርኛ</span>
+                </div>
+              </div>
+            }
           </div>
 
-          <!-- Mobile Hamburger Menu Toggle -->
-          <button
-            (click)="mobileMenuOpen.update(v => !v)"
-            class="lg:hidden p-2 text-gray-800 dark:text-white hover:text-[#CC4C0F] rounded-xl hover:bg-orange-50 dark:hover:bg-zinc-800 transition-colors focus:outline-none"
-            aria-label="Toggle navigation"
+          <!-- Get in Touch CTA Button -->
+          <a
+            routerLink="/contact"
+            class="inline-flex items-center gap-1.5 sm:gap-2 btn-feedback btn-cta text-xs sm:text-sm font-bold px-3.5 sm:px-6 py-2 sm:py-2.5 rounded-full whitespace-nowrap"
+            style="text-decoration: none;"
           >
-            <app-icon [name]="mobileMenuOpen() ? 'x' : 'menu'" customClass="w-6 h-6"></app-icon>
-          </button>
-        </div>
+            <span>{{ isAm() ? 'ይገናኙን' : 'Get in Touch' }}</span>
+            <svg class="w-3.5 h-3.5 hidden sm:inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+            </svg>
+          </a>
 
+        </div>
       </div>
 
-      <!-- Mobile Menu Dropdown (Absolute overlay) -->
-      @if (mobileMenuOpen()) {
-        <div class="absolute top-full left-0 right-0 z-50 lg:hidden px-4 pt-1 pb-6">
-          <div class="bg-white/95 dark:bg-zinc-900/95 backdrop-blur-2xl rounded-3xl p-6 shadow-2xl border border-orange-100 dark:border-zinc-800 animate-in fade-in slide-in-from-top-4 duration-200">
-            <div class="flex flex-col space-y-2">
-              @for (link of navLinks(); track link.id) {
-                <a
-                  [routerLink]="link.path"
-                  (click)="mobileMenuOpen.set(false); scrollToTop()"
-                  routerLinkActive="bg-[#CC4C0F] text-white"
-                  [routerLinkActiveOptions]="{ exact: link.exact }"
-                  class="text-left px-4 py-3 rounded-2xl text-sm font-bold text-gray-800 dark:text-white hover:bg-orange-50 dark:hover:bg-zinc-800 hover:text-[#CC4C0F] transition-colors"
-                >
-                  {{ link.name }}
-                </a>
-              }
-
-              <a
-                routerLink="/contact"
-                (click)="mobileMenuOpen.set(false); scrollToTop()"
-                routerLinkActive="bg-[#CC4C0F] text-white"
-                class="text-left px-4 py-3 rounded-2xl text-sm font-bold text-[#CC4C0F] bg-orange-50 dark:bg-zinc-800 hover:bg-orange-100 transition-colors"
-              >
-                {{ isAm() ? 'ይገናኙን (Get in Touch)' : 'Get in Touch (Contact)' }}
-              </a>
-
-              <!-- Mobile Call Button -->
-              <div class="pt-3 flex flex-col gap-2">
-                <a
-                  href="tel:+251910900931"
-                  class="flex items-center justify-center gap-2 py-3 rounded-2xl bg-[#1A1A1A] text-white font-bold text-xs shadow-md"
-                >
-                  <app-icon name="phone" customClass="w-4 h-4 text-orange-400"></app-icon>
-                  <span>Call +251 910 900 931</span>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      }
     </header>
-
-    <!-- 2. Responsive Layout Spacer (Dynamically matches the exact height of the unified header) -->
-    <div class="navbar-spacer"></div>
   `
 })
 export class NavbarComponent implements AfterViewInit, OnDestroy {
-  @ViewChild('navbarHeader') navbarHeader?: ElementRef<HTMLElement>;
-
   private translation = inject(TranslationService);
-  private themeService = inject(ThemeService);
-  private router = inject(Router);
+  private router      = inject(Router);
 
-  private resizeObserver?: ResizeObserver;
-  private resizeListener?: () => void;
+  @ViewChild('glassContainer') glassContainer!: ElementRef<HTMLElement>;
+  private glassInstance: any;
 
-  readonly isAm = this.translation.isAmharic;
-  readonly isDark = this.themeService.isDark;
-  mobileMenuOpen = signal<boolean>(false);
+  readonly isAm      = this.translation.isAmharic;
+  readonly langOpen   = signal<boolean>(false);
 
-  readonly socialLinks = [
-    { name: 'Telegram', icon: 'telegram', url: 'https://t.me/zenerhome' },
-    { name: 'TikTok', icon: 'tiktok', url: 'https://tiktok.com/@zenerhome' },
-    { name: 'Facebook', icon: 'facebook', url: 'https://facebook.com/zenerhome' },
-    { name: 'Instagram', icon: 'instagram', url: 'https://instagram.com/zenerhome' },
-    { name: 'YouTube', icon: 'youtube', url: 'https://youtube.com/@zenerhome' },
+  readonly navLinks = [
+    { id: 'home',      path: '/',          exact: true,  nameEn: 'Home',      nameAm: 'መነሻ'       },
+    { id: 'furniture', path: '/furniture', exact: false, nameEn: 'Furniture', nameAm: 'ፈርኒቸር'    },
+    { id: 'projects',  path: '/projects',  exact: false, nameEn: 'Projects',  nameAm: 'ፕሮጀክቶች'   },
+    { id: 'services',  path: '/services',  exact: false, nameEn: 'Services',  nameAm: 'አገልግሎቶች' },
+    { id: 'about',     path: '/about',     exact: false, nameEn: 'About Us',  nameAm: 'ስለ እኛ'    },
   ];
 
-  navLinks = signal<any[]>([]);
-
   constructor() {
-    this.updateNavLinks();
-    this.router.events.pipe(filter(e => e instanceof NavigationEnd)).subscribe(() => {
-      this.mobileMenuOpen.set(false);
-    });
+    this.router.events
+      .pipe(filter(e => e instanceof NavigationEnd))
+      .subscribe(() => {
+        window.scrollTo({ top: 0 });
+        this.langOpen.set(false);
+      });
   }
 
   ngAfterViewInit(): void {
-    if (typeof window !== 'undefined' && this.navbarHeader?.nativeElement) {
-      const updateHeight = () => {
-        const el = this.navbarHeader?.nativeElement;
-        if (el) {
-          const barHeight = el.offsetHeight;
-          if (barHeight > 0) {
-            document.documentElement.style.setProperty('--navbar-height', `${barHeight}px`);
-          }
-        }
-      };
-
-      updateHeight();
-
-      if (typeof ResizeObserver !== 'undefined') {
-        this.resizeObserver = new ResizeObserver(() => {
-          updateHeight();
-        });
-        this.resizeObserver.observe(this.navbarHeader.nativeElement);
-      }
-
-      this.resizeListener = () => updateHeight();
-      window.addEventListener('resize', this.resizeListener);
+    if (this.glassContainer) {
+      this.glassInstance = liquidGlass(this.glassContainer.nativeElement, {
+        scale: -140,
+        blur: 12,
+        saturate: 2.2,
+        fallbackBlur: 36
+      });
     }
   }
 
   ngOnDestroy(): void {
-    if (this.resizeObserver) {
-      this.resizeObserver.disconnect();
+    this.glassInstance?.destroy();
+  }
+
+  @HostListener('document:click', ['$event'])
+  onDocClick(e: MouseEvent): void {
+    const el = e.target as HTMLElement;
+    if (!el.closest('.relative') && !el.closest('[aria-label="Language selector"]')) {
+      this.langOpen.set(false);
     }
-    if (this.resizeListener && typeof window !== 'undefined') {
-      window.removeEventListener('resize', this.resizeListener);
-    }
   }
 
-  updateNavLinks(): void {
-    const isAm = this.isAm();
-    this.navLinks.set([
-      { id: 'home', path: '/', exact: true, name: isAm ? 'መነሻ' : 'Home' },
-      { id: 'furniture', path: '/furniture', exact: false, name: isAm ? 'ፈርኒቸር' : 'Furniture' },
-      { id: 'projects', path: '/projects', exact: false, name: isAm ? 'ፕሮጀክት' : 'Project' },
-      { id: 'services', path: '/services', exact: false, name: isAm ? 'አገልግሎቶች' : 'Services' },
-      { id: 'about', path: '/about', exact: false, name: isAm ? 'ስለ እኛ' : 'About Us' },
-    ]);
+  setLang(lang: 'en' | 'am'): void {
+    this.translation.setLanguage(lang);
+    this.langOpen.set(false);
   }
 
-  toggleLang(): void {
-    this.translation.toggleLanguage();
-    this.updateNavLinks();
-  }
-
-  toggleTheme(): void {
-    this.themeService.toggleTheme();
-  }
-
-  scrollToTop(): void {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
+  scrollToTop(): void { window.scrollTo({ top: 0, behavior: 'smooth' }); }
 }

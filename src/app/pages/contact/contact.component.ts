@@ -144,6 +144,14 @@ import { IconComponent } from '../../shared/components/icon.component';
                   >
                    Tiktok
                   </a>
+                   <a
+                    href="https://t.me/zenerhome"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="px-5 py-1.5 rounded-full bg-orange-50 hover:bg-orange-500 hover:text-white text-orange-700 text-ls font-semibold transition-colors"
+                  >
+                   Telegram
+                  </a>
                 </div>
               </div>
 

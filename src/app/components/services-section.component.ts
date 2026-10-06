@@ -85,29 +85,6 @@ import { IconComponent } from '../shared/components/icon.component';
           }
         </div>
 
-        <!-- Finishing Guarantee Banner -->
-        <div class="mt-16 bg-gradient-to-r from-[#1A1A1A] via-[#2E231E] to-[#1A1A1A] text-white rounded-3xl p-8 sm:p-12 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-8">
-          <div class="max-w-xl space-y-3">
-            <span class="bg-orange-500/20 text-orange-400 border border-orange-500/30 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider inline-block">
-              Turnkey Finishing Guarantee
-            </span>
-            <h3 class="text-2xl sm:text-3xl font-bold">
-              100% Fixed-Budget & Milestone Handover Contracts
-            </h3>
-            <p class="text-white/80 text-xs sm:text-sm leading-relaxed">
-              We eliminate unexpected finishing budget surges with pre-agreed BOQs, registered company warranties, and transparent milestone payment structures.
-            </p>
-          </div>
-          <div class="flex-shrink-0">
-            <a
-              routerLink="/contact"
-              class="bg-[#CC4C0F] hover:bg-[#B33E08] text-white px-8 py-4 rounded-full font-bold text-xs sm:text-sm shadow-xl shadow-orange-500/30 transition-all inline-block"
-            >
-              Contact Engineering Team
-            </a>
-          </div>
-        </div>
-
       </div>
     </section>
   `

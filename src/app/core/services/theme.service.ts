@@ -6,28 +6,32 @@ export type ThemeMode = 'light' | 'dark';
   providedIn: 'root'
 })
 export class ThemeService {
-  readonly isDark = signal<boolean>(true);
+  readonly isDark = signal<boolean>(false);
 
   constructor() {
-    const saved = localStorage.getItem('zener_theme');
-    const initialDark = saved ? saved === 'dark' : true; // default to dark theme
-    this.isDark.set(initialDark);
+    if (typeof window !== 'undefined') {
+      // Follow system preference — no manual toggle
+      const mq = window.matchMedia('(prefers-color-scheme: dark)');
+      this.isDark.set(mq.matches);
 
-    effect(() => {
-      const dark = this.isDark();
-      if (dark) {
-        document.documentElement.classList.add('dark');
-        document.body.classList.add('dark');
-        localStorage.setItem('zener_theme', 'dark');
-      } else {
-        document.documentElement.classList.remove('dark');
-        document.body.classList.remove('dark');
-        localStorage.setItem('zener_theme', 'light');
-      }
-    });
+      // React to system changes at runtime
+      mq.addEventListener('change', (e) => {
+        this.isDark.set(e.matches);
+      });
+
+      effect(() => {
+        const dark = this.isDark();
+        if (dark) {
+          document.documentElement.classList.add('dark');
+          document.body.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+          document.body.classList.remove('dark');
+        }
+      });
+    }
   }
 
-  toggleTheme(): void {
-    this.isDark.update(prev => !prev);
-  }
+  // Keep the method signature for any callers, but it's no-op now
+  toggleTheme(): void {}
 }

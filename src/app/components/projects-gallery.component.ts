@@ -121,10 +121,9 @@ export class ProjectsGalleryComponent {
 
   readonly categories = [
     { id: 'all', label: 'All Projects' },
-    { id: 'residential', label: 'Luxury Villas' },
-    { id: 'apartment', label: 'Apartments' },
-    { id: 'commercial', label: 'Corporate & Commercial' },
-    { id: 'hospitality', label: 'Hotels & Banquets' },
+    { id: 'residential', label: 'Residence' },
+    { id: 'commercial', label: 'Commercial' },
+    { id: 'hospitality', label: 'Hotel' },
   ];
 
   readonly filteredProjects = computed(() => {

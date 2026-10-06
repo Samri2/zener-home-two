@@ -106,6 +106,37 @@ import { ProjectItem } from '../core/data/projects';
                   <app-icon name="map-pin" customClass="w-4 h-4 text-orange-500"></app-icon>
                   <span>{{ proj.location }}</span>
                 </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-4">
+                  <div class="rounded-2xl border border-gray-200 bg-gray-50 p-3">
+                    <div class="text-[10px] font-bold uppercase tracking-[0.18em] text-gray-500">Project Area</div>
+                    <div class="mt-1 text-sm font-semibold text-gray-900">{{ proj.projectArea || '[X,XXX] m²' }}</div>
+                  </div>
+                  <div class="rounded-2xl border border-gray-200 bg-gray-50 p-3">
+                    <div class="text-[10px] font-bold uppercase tracking-[0.18em] text-gray-500">Project Type</div>
+                    <div class="mt-1 text-sm font-semibold text-gray-900">{{ proj.projectType || 'Construction' }}</div>
+                  </div>
+                  <div class="rounded-2xl border border-gray-200 bg-gray-50 p-3">
+                    <div class="text-[10px] font-bold uppercase tracking-[0.18em] text-gray-500">Status</div>
+                    <div class="mt-1 text-sm font-semibold text-gray-900">{{ proj.status || 'Under Construction' }}</div>
+                  </div>
+                  <div class="rounded-2xl border border-gray-200 bg-gray-50 p-3">
+                    <div class="text-[10px] font-bold uppercase tracking-[0.18em] text-gray-500">Start Date</div>
+                    <div class="mt-1 text-sm font-semibold text-gray-900">{{ proj.startDate || '[Month, Year]' }}</div>
+                  </div>
+                  <div class="rounded-2xl border border-gray-200 bg-gray-50 p-3">
+                    <div class="text-[10px] font-bold uppercase tracking-[0.18em] text-gray-500">Completion Date</div>
+                    <div class="mt-1 text-sm font-semibold text-gray-900">{{ proj.completionDate || '[Month, Year]' }}</div>
+                  </div>
+                  <div class="rounded-2xl border border-gray-200 bg-gray-50 p-3">
+                    <div class="text-[10px] font-bold uppercase tracking-[0.18em] text-gray-500">Developer/Client</div>
+                    <div class="mt-1 text-sm font-semibold text-gray-900">{{ proj.developerClient || '[Name]' }}</div>
+                  </div>
+                  <div class="rounded-2xl border border-gray-200 bg-gray-50 p-3 sm:col-span-2">
+                    <div class="text-[10px] font-bold uppercase tracking-[0.18em] text-gray-500">Contractor</div>
+                    <div class="mt-1 text-sm font-semibold text-gray-900">{{ proj.contractor || '[Name]' }}</div>
+                  </div>
+                </div>
               </div>
 
               <!-- Scope & Contact Actions -->

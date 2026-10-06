@@ -82,7 +82,7 @@ import { BentoCollectionItem } from '../core/data/collections';
 
                 <!-- Description -->
                 <p class="text-gray-600 text-xs sm:text-sm leading-relaxed">
-                  {{ itm.description }}
+                  {{ getCompactDescription(itm.description) }}
                 </p>
 
                 <!-- Technical Specs Box (if full product) -->
@@ -205,6 +205,11 @@ export class ProductDetailModalComponent {
       return (itm as ProductItem).gallery;
     }
     return [itm.image];
+  }
+
+  getCompactDescription(description: string): string {
+    if (!description) return '';
+    return description.length > 170 ? `${description.slice(0, 170).trim()}…` : description;
   }
 
   handleWhatsAppInquiry(itm: ProductItem | BentoCollectionItem): void {

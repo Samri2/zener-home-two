@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Oakwell — Interior Finishing &amp; Custom Furniture</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    box-sizing:border-box;
+    padding-top:env(safe-area-inset-top,0px);
+    padding-bottom:env(safe-area-inset-bottom,0px);
+    --bg:#0c0c0d;
+    --bg-raised:#141414;
+    --ink:#f7f5f0;
+    --ink-dim:rgba(247,245,240,.62);
+    --ink-faint:rgba(247,245,240,.4);
+    --accent:#ff6b1a;
+    --accent-soft:#ff8a47;
+    --glass-bg:rgba(255,255,255,.06);
+    --glass-border:rgba(255,255,255,.14);
+    --ease-out:cubic-bezier(.22,1,.36,1);
+  }
+  html{scroll-padding-top:env(safe-area-inset-top,0px);}
+  *,*::before,*::after{box-sizing:inherit;margin:0;padding:0;}
+  html,body{background:var(--bg);color:var(--ink);}
+  body{
+    font-family:'Inter',sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+    min-height:100%;
+  }
+  h1,h2,h3{font-family:'Fraunces',serif;font-weight:500;letter-spacing:-.01em;line-height:1.08;}
+  a{color:inherit;text-decoration:none;}
+  button{font-family:inherit;cursor:pointer;background:none;border:none;color:inherit;}
+  img,svg{display:block;max-width:100%;}
+  ::selection{background:var(--accent);color:#fff;}
+
+  /* ---------- layout helpers ---------- */
+  .wrap{max-width:1280px;margin-inline:auto;padding-inline:clamp(20px,4vw,56px);}
+  .glass{
+    background:var(--glass-bg);
+    backdrop-filter:blur(26px) saturate(180%);
+    -webkit-backdrop-filter:blur(26px) saturate(180%);
+    border:1px solid var(--glass-border);
+  }
+  .pill{border-radius:999px;}
+
+  /* ---------- NAV ---------- */
+  .nav{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    padding:env(safe-area-inset-top,0px) 0 0 0;
+    transition:background .5s var(--ease-out), border-color .5s;
+    border-bottom:1px solid transparent;
+  }
+  .nav.scrolled{background:rgba(12,12,13,.55); backdrop-filter:blur(22px) saturate(160%); border-color:var(--glass-border);}
+  .nav-inner{
+    display:flex; align-items:center; justify-content:space-between;
+    padding-block:18px;
+    opacity:0; transform:translateY(-12px);
+    animation:navIn .6s var(--ease-out) .1s forwards;
+  }
+  @keyframes navIn{to{opacity:1; transform:none;}}
+  .logo{font-family:'Fraunces',serif; font-size:22px; letter-spacing:.02em;}
+  .nav-links{display:flex; gap:34px; list-style:none; font-size:14.5px; color:var(--ink-dim);}
+  .nav-links a{transition:color .25s;}
+  .nav-links a:hover{color:var(--ink);}
+  .nav-right{display:flex; align-items:center; gap:18px;}
+  .icon-btn{width:20px; height:20px; opacity:.85; transition:opacity .2s;}
+  .icon-btn:hover{opacity:1;}
+  .cta{
+    padding:11px 22px; font-size:14px; font-weight:600;
+    background:var(--accent); color:#fff;
+    box-shadow:0 0 0 rgba(255,107,26,0);
+    transition:opacity .5s var(--ease-out), transform .5s var(--ease-out), box-shadow .25s, background .25s;
+    opacity:0; transform:scale(.9); pointer-events:none;
+  }
+  .cta.visible{opacity:1; transform:scale(1); pointer-events:auto;}
+  .cta:hover{box-shadow:0 0 22px rgba(255,107,26,.55); background:var(--accent-soft);}
+  .cta:active{transform:scale(.95) !important;}
+  .hamburger{display:none; width:22px; height:16px; position:relative;}
+  .hamburger span{position:absolute; left:0; right:0; height:2px; background:var(--ink); border-radius:2px; transition:.3s;}
+  .hamburger span:nth-child(1){top:0;} .hamburger span:nth-child(2){top:7px;} .hamburger span:nth-child(3){top:14px;}
+  .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  .hamburger.open span:nth-child(2){opacity:0;}
+  .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+  .mobile-sheet{
+    position:fixed; top:0; right:0; bottom:0; left:0; z-index:99;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:26px;
+    opacity:0; visibility:hidden; transform:translateY(-16px);
+    transition:opacity .4s var(--ease-out), transform .4s var(--ease-out), visibility 0s .4s;
+    padding-top:env(safe-area-inset-top,0px);
+  }
+  .mobile-sheet.open{opacity:1; visibility:visible; transform:none; transition:opacity .4s var(--ease-out), transform .4s var(--ease-out);}
+  .mobile-sheet a{font-family:'Fraunces',serif; font-size:26px; opacity:0; transform:translateY(10px); transition:opacity .4s var(--ease-out), transform .4s var(--ease-out);}
+  .mobile-sheet.open a{opacity:1; transform:none;}
+  .mobile-sheet.open a:nth-child(1){transition-delay:.05s;}
+  .mobile-sheet.open a:nth-child(2){transition-delay:.1s;}
+  .mobile-sheet.open a:nth-child(3){transition-delay:.15s;}
+  .mobile-sheet.open a:nth-child(4){transition-delay:.2s;}
+  .mobile-sheet.open a:nth-child(5){transition-delay:.25s;}
+
+  /* ---------- SCENES (illustrated placeholders, no external images) ---------- */
+  .scene{position:absolute; top:0; right:0; bottom:0; left:0; overflow:hidden;}
+  .scene .sky{
+    position:absolute; top:0; right:0; bottom:0; left:0;
+    background:linear-gradient(180deg,#1c1530 0%,#3c2a3d 32%,#7a4a3f 62%,#c9793f 100%);
+  }
+  .scene .roof{
+    position:absolute; left:2%; right:2%; bottom:0; height:58%;
+    background:#0b0a0c;
+    clip-path:polygon(0% 100%, 0% 46%, 22% 20%, 42% 2%, 58% 2%, 78% 22%, 100% 48%, 100% 100%);
+  }
+  .scene .glow{position:absolute; border-radius:3px; background:radial-gradient(circle,#ffcf94 0%,rgba(255,180,110,.5) 55%,transparent 75%); filter:blur(1px);}
+  .scene .ground{position:absolute; left:0; right:0; bottom:0; height:14%; background:linear-gradient(180deg,transparent,rgba(70,120,60,.5));}
+  .scene.kenburns{animation:kenburns 16s ease-in-out infinite alternate;}
+  @keyframes kenburns{from{transform:scale(1);} to{transform:scale(1.07);}}
+
+  .scene.interior .sky{background:linear-gradient(120deg,#241a17 0%,#3c2a22 45%,#5a4030 100%);}
+  .scene.interior .mullions{
+    position:absolute; top:0; right:0; bottom:0; left:0;
+    background:repeating-linear-gradient(90deg, rgba(0,0,0,.28) 0 8px, transparent 8px 74px);
+    mix-blend-mode:multiply;
+  }
+  .scene.interior .floor-glow{position:absolute; left:0; right:0; bottom:0; height:30%; background:linear-gradient(180deg,transparent,rgba(255,190,130,.18));}
+
+  .scene.exterior-night .sky{background:linear-gradient(180deg,#0d1420 0%,#182233 55%,#25181a 100%);}
+
+  /* ---------- HERO ---------- */
+  .hero{position:relative; height:100vh; height:100svh; min-height:560px; overflow:hidden;}
+  .hero-bg{position:absolute; top:0; right:0; bottom:0; left:0;}
+  .layer{position:absolute; top:0; right:0; bottom:0; left:0; opacity:0; transition:opacity .9s var(--ease-out);}
+  .layer.on{opacity:1;}
+  .split-left, .split-right{position:absolute; top:0; bottom:0; width:50%; overflow:hidden;}
+  .split-left{left:0;} .split-right{right:0;}
+  .split-seam{position:absolute; top:0; bottom:0; left:50%; width:2px; background:linear-gradient(180deg,transparent,rgba(255,255,255,.35),transparent); transform:translateX(-1px);}
+
+  .hero-scrim{position:absolute; top:0; right:0; bottom:0; left:0; background:linear-gradient(to top, rgba(0,0,0,.88) 0%, rgba(0,0,0,.32) 45%, rgba(0,0,0,.05) 75%);}
+
+  .hero-content{
+    position:relative; z-index:2; height:100%;
+    display:flex; flex-direction:column; justify-content:flex-end;
+    padding:0 clamp(20px,4vw,56px) clamp(28px,5vh,64px);
+  }
+  .hero-copy{max-width:820px; transition:all .6s var(--ease-out);}
+  .headline{font-size:clamp(30px,5.4vw,58px); color:var(--ink);}
+  .headline .word{display:inline-block; opacity:0; transform:translateY(16px); filter:blur(2px);}
+  .headline .word.play{animation:wordIn .5s var(--ease-out) forwards;}
+  .headline.plain{opacity:1;}
+  @keyframes wordIn{to{opacity:1; transform:none; filter:blur(0);}}
+  .tagline{margin-top:14px; font-size:15.5px; color:var(--ink-dim); max-width:440px;
+    opacity:0; transform:translateY(8px); transition:opacity .5s var(--ease-out) .1s, transform .5s var(--ease-out) .1s;}
+
+  /* phase-specific hero-copy placement */
+  .hero[data-phase="a"] .hero-copy{align-self:flex-start; text-align:left;}
+  .hero[data-phase="a"] .headline{font-size:clamp(30px,5.4vw,58px);}
+  .hero[data-phase="b"] .hero-copy{align-self:center; text-align:center; margin-inline:auto;}
+  .hero[data-phase="b"] .headline{font-size:clamp(26px,4.4vw,46px);}
+  .hero[data-phase="c"] .hero-copy{align-self:flex-start; text-align:left;}
+  .hero[data-phase="c"] .headline{font-size:clamp(24px,3.4vw,36px);}
+  .hero[data-phase="c"] .tagline{opacity:1; transform:none;}
+
+  /* Phase B: tabs + filters + preview cards */
+  .search-panel{margin-top:26px; opacity:0; transform:translateY(14px); pointer-events:none; transition:opacity .5s var(--ease-out), transform .5s var(--ease-out);}
+  .hero[data-phase="b"] .search-panel{opacity:1; transform:none; pointer-events:auto;}
+  .tabs{display:inline-flex; gap:6px; padding:5px; border-radius:999px; margin-bottom:14px;}
+  .tab{padding:9px 18px; font-size:13.5px; border-radius:999px; color:var(--ink-dim); transition:.25s;}
+  .tab.active{background:var(--accent); color:#fff;}
+  .filter-row{display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin-bottom:22px;}
+  .filter-pill{padding:10px 16px; font-size:13px; color:var(--ink-dim); display:flex; align-items:center; gap:8px; transition:border-color .25s, box-shadow .25s;}
+  .filter-pill:hover{border-color:rgba(255,107,26,.6); box-shadow:0 0 14px rgba(255,107,26,.3);}
+  .stepper{display:flex; gap:4px;}
+  .step{width:24px; height:24px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; color:var(--ink-faint); transition:.25s;}
+  .step.active{background:var(--accent); color:#fff;}
+  .preview-row{display:flex; gap:14px; justify-content:center; max-width:640px; margin-inline:auto;}
+  .preview-card{flex:1; height:120px; border-radius:16px; overflow:hidden; position:relative;
+    opacity:0; transform:translateY(16px); transition:opacity .5s var(--ease-out), transform .5s var(--ease-out);}
+  .hero[data-phase="b"] .preview-card{opacity:1; transform:none;}
+  .hero[data-phase="b"] .preview-card:nth-child(2){transition-delay:.1s;}
+  .preview-card .scene{position:absolute; top:0; right:0; bottom:0; left:0;}
+
+  /* Phase C: sidebar + contact row */
+  .hero-sidebar{
+    position:absolute; right:clamp(16px,3vw,40px); top:50%; transform:translate(24px,-50%);
+    display:flex; flex-direction:column; gap:12px; width:190px; z-index:3;
+    opacity:0; transition:opacity .5s var(--ease-out), transform .5s var(--ease-out);
+  }
+  .hero[data-phase="c"] .hero-sidebar{opacity:1; transform:translate(0,-50%);}
+  .side-card{position:relative; height:96px; border-radius:12px; overflow:hidden; cursor:pointer;}
+  .side-card .scene{position:absolute; top:0; right:0; bottom:0; left:0;}
+  .side-card .side-overlay{position:absolute; top:0; right:0; bottom:0; left:0; background:rgba(0,0,0,0); transition:background .4s;}
+  .side-card:hover .side-overlay{background:rgba(0,0,0,.35);}
+  .side-card .view-btn{
+    position:absolute; top:0; right:0; bottom:0; left:0; margin:auto; width:52px; height:52px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center; font-size:11px;
+    opacity:0; transform:scale(.8); transition:opacity .3s var(--ease-out), transform .3s var(--ease-out);
+  }
+  .side-card:hover .view-btn{opacity:1; transform:scale(1);}
+  .side-card:hover .scene{transform:scale(1.08); transition:transform .4s var(--ease-out);}
+  .side-label{position:absolute; left:10px; bottom:8px; font-size:12px; z-index:2;}
+
+  .hero-footer-row{
+    position:absolute; left:clamp(20px,4vw,56px); right:clamp(20px,4vw,56px); bottom:26px;
+    display:flex; justify-content:space-between; align-items:center; z-index:3;
+    opacity:0; transition:opacity .5s var(--ease-out);
+  }
+  .hero[data-phase="c"] .hero-footer-row{opacity:1;}
+  .contact-line{display:flex; align-items:center; gap:9px; font-size:14px; color:var(--ink-dim);}
+  .socials{display:flex; gap:16px;}
+  .socials a{opacity:.6; transition:.25s;}
+  .socials a:hover{opacity:1; transform:scale(1.1);}
+
+  .scroll-cue{position:absolute; left:50%; bottom:14px; transform:translateX(-50%); font-size:11px; color:var(--ink-faint); letter-spacing:.08em; z-index:3;}
+
+  /* ---------- PROJECTS SECTION ---------- */
+  .projects{padding:110px 0 120px; position:relative;}
+  .section-head{max-width:640px; margin-bottom:44px;}
+  .section-head h2{font-size:clamp(30px,4vw,44px); margin-bottom:14px;}
+  .section-head p{color:var(--ink-dim); font-size:15.5px; max-width:480px;}
+
+  .tabs.static{margin:28px 0 8px;}
+  .filter-row.static{justify-content:flex-start; margin-bottom:46px;}
+
+  .grid{display:grid; grid-template-columns:1fr 1fr; gap:22px;}
+  .card{
+    position:relative; border-radius:18px; overflow:hidden; aspect-ratio:4/3;
+    opacity:0; transform:translateY(28px); transition:opacity .6s var(--ease-out), transform .6s var(--ease-out);
+  }
+  .card.in-view{opacity:1; transform:none;}
+  .card .scene{position:absolute; top:0; right:0; bottom:0; left:0; transition:transform .5s var(--ease-out);}
+  .card:hover .scene.active{transform:scale(1.045);}
+  .card .card-scrim{position:absolute; top:0; right:0; bottom:0; left:0; background:linear-gradient(to top, rgba(0,0,0,.55) 0%, rgba(0,0,0,.1) 55%, transparent 75%); transition:background .4s;}
+  .card:hover .card-scrim{background:linear-gradient(to top, rgba(0,0,0,.72) 0%, rgba(0,0,0,.22) 55%, transparent 78%);}
+  .card-body{position:absolute; left:22px; right:22px; bottom:18px; z-index:2;}
+  .card-name{font-size:22px; margin-bottom:3px;}
+  .card-sub{font-size:12.5px; color:var(--ink-dim); text-transform:uppercase; letter-spacing:.06em;}
+  .card-stats{display:flex; gap:14px; margin:12px 0 0; list-style:none; opacity:0; transform:translateY(10px); transition:opacity .4s var(--ease-out), transform .4s var(--ease-out);}
+  .card:hover .card-stats{opacity:1; transform:none;}
+  .card-stats li{font-size:11.5px; color:var(--ink-dim); border-left:1px solid var(--glass-border); padding-left:9px;}
+  .card-stats li:first-child{border-left:none; padding-left:0;}
+  .card-cta{
+    position:absolute; top:20px; left:22px; z-index:2; font-size:12.5px; padding:9px 16px;
+    opacity:0; transform:translateY(-6px); transition:opacity .35s var(--ease-out), transform .35s var(--ease-out), background .25s, color .25s;
+  }
+  .card:hover .card-cta{opacity:1; transform:none;}
+  .card-cta:hover{background:var(--accent); color:#fff; border-color:var(--accent);}
+  .card-arrow{
+    position:absolute; top:50%; transform:translateY(-50%); width:38px; height:38px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center; z-index:2;
+    opacity:0; transition:opacity .3s var(--ease-out), box-shadow .25s, transform .25s;
+  }
+  .card:hover .card-arrow{opacity:.85;}
+  .card-arrow:hover{opacity:1 !important; box-shadow:0 0 16px rgba(255,107,26,.6); transform:translateY(-50%) scale(1.1); border-color:var(--accent);}
+  .arrow-prev{left:16px;} .arrow-next{right:16px;}
+
+  .load-more-wrap{display:flex; justify-content:center; margin-top:50px;}
+  .load-more{padding:13px 30px; font-size:14px;}
+  .load-more:hover{border-color:rgba(255,107,26,.6); box-shadow:0 0 18px rgba(255,107,26,.3);}
+
+  /* ---------- FOOTER ---------- */
+  footer{border-top:1px solid var(--glass-border); padding:56px 0 34px;}
+  .footer-top{display:flex; flex-wrap:wrap; justify-content:space-between; gap:32px; margin-bottom:40px;}
+  .footer-links{display:flex; gap:28px; list-style:none; font-size:14px; color:var(--ink-dim);}
+  .footer-links a:hover{color:var(--ink);}
+  .footer-bottom{display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; font-size:12.5px; color:var(--ink-faint);}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:860px){
+    .nav-links, .cta{display:none;}
+    .hamburger{display:block;}
+    .hero-sidebar{width:150px;}
+    .grid{grid-template-columns:1fr;}
+    .filter-row{overflow-x:auto; flex-wrap:nowrap; justify-content:flex-start; padding-bottom:6px; scrollbar-width:none;}
+    .filter-row::-webkit-scrollbar{display:none;}
+    .hero-footer-row{flex-direction:column; align-items:flex-start; gap:10px; bottom:16px;}
+  }
+  @media (max-width:600px){
+    .hero[data-phase="c"] .hero-sidebar{
+      flex-direction:row; width:auto; left:20px; right:20px; top:auto; bottom:78px; transform:translateY(10px);
+      overflow-x:auto;
+    }
+    .hero[data-phase="c"] .hero-sidebar{transform:translateY(0);}
+    .side-card{min-width:110px; height:78px;}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    .scene.kenburns{animation:none;}
+    .headline .word{animation:none !important; opacity:1 !important; transform:none !important; filter:none !important;}
+    .layer{transition:opacity .3s linear;}
+    *{transition-duration:.15s !important;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<nav class="nav" id="nav">
+  <div class="wrap nav-inner">
+    <a href="#" class="logo">oakwell</a>
+    <ul class="nav-links">
+      <li><a href="#">About</a></li>
+      <li><a href="#">Services</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#">Journal</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <svg class="icon-btn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.6" y2="16.6"/></svg>
+      <button class="cta pill" id="ctaBtn">Start a Project</button>
+      <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+
+<div class="mobile-sheet glass" id="mobileSheet">
+  <a href="#">About</a>
+  <a href="#">Services</a>
+  <a href="#projects">Projects</a>
+  <a href="#">Journal</a>
+  <a href="#">Contact</a>
+</div>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="hero" data-phase="a">
+  <div class="hero-bg">
+    <div class="layer full on" id="layerFull">
+      <div class="scene kenburns">
+        <div class="sky"></div>
+        <div class="roof"></div>
+        <div class="glow" style="width:34px;height:46px;left:29%;bottom:30%;"></div>
+        <div class="glow" style="width:60px;height:30px;left:46%;bottom:26%;"></div>
+        <div class="glow" style="width:22px;height:22px;left:66%;bottom:32%;"></div>
+        <div class="ground"></div>
+      </div>
+    </div>
+    <div class="layer split" id="layerSplit">
+      <div class="split-left">
+        <div class="scene exterior-night kenburns">
+          <div class="sky"></div>
+          <div class="roof"></div>
+          <div class="glow" style="width:30px;height:40px;left:24%;bottom:28%;"></div>
+          <div class="glow" style="width:50px;height:26px;left:44%;bottom:24%;"></div>
+          <div class="ground"></div>
+        </div>
+      </div>
+      <div class="split-right">
+        <div class="scene interior">
+          <div class="sky"></div>
+          <div class="mullions"></div>
+          <div class="floor-glow"></div>
+        </div>
+      </div>
+      <div class="split-seam"></div>
+    </div>
+  </div>
+  <div class="hero-scrim"></div>
+
+  <div class="hero-content">
+    <div class="hero-copy">
+      <h1 class="headline plain" id="headline">We don&rsquo;t finish rooms. We finish how you live in them.</h1>
+      <p class="tagline">Bespoke interior finishing and furniture, built around how you actually live — from concept to the final coat.</p>
+
+      <div class="search-panel">
+        <div class="tabs glass">
+          <span class="tab">All</span>
+          <span class="tab active">Interiors</span>
+          <span class="tab">Furniture</span>
+          <span class="tab">Custom Finishes</span>
+        </div>
+        <div class="filter-row">
+          <div class="filter-pill glass pill">Style: Modern Minimalist</div>
+          <div class="filter-pill glass pill">Scope: 50–150 m²</div>
+          <div class="filter-pill glass pill">Rooms
+            <span class="stepper">
+              <span class="step">1</span><span class="step">2</span><span class="step active">3</span><span class="step">4</span><span class="step">5</span>
+            </span>
+          </div>
+          <div class="filter-pill glass pill">Timeline
+            <span class="stepper">
+              <span class="step">1</span><span class="step active">2</span><span class="step">3</span>
+            </span>
+          </div>
+        </div>
+        <div class="preview-row">
+          <div class="preview-card"><div class="scene kenburns"><div class="sky"></div><div class="roof"></div></div></div>
+          <div class="preview-card"><div class="scene interior"><div class="sky"></div><div class="mullions"></div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <aside class="hero-sidebar">
+    <div class="side-card">
+      <div class="scene kenburns"><div class="sky"></div><div class="roof"></div></div>
+      <div class="side-overlay"></div>
+      <span class="side-label">Interior Finishing</span>
+      <div class="view-btn glass">View</div>
+    </div>
+    <div class="side-card">
+      <div class="scene interior"><div class="sky"></div><div class="mullions"></div></div>
+      <div class="side-overlay"></div>
+      <span class="side-label">Custom Furniture</span>
+      <div class="view-btn glass">View</div>
+    </div>
+    <div class="side-card">
+      <div class="scene exterior-night"><div class="sky"></div><div class="roof"></div></div>
+      <div class="side-overlay"></div>
+      <span class="side-label">Full Renovations</span>
+      <div class="view-btn glass">View</div>
+    </div>
+  </aside>
+
+  <div class="hero-footer-row">
+    <div class="contact-line">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      <span>+251 900 000 000</span>
+    </div>
+    <div class="socials">
+      <a href="#" aria-label="Instagram"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+      <a href="#" aria-label="Facebook"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+      <a href="#" aria-label="YouTube"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="5" width="20" height="14" rx="4"/><polygon points="10 9 15 12 10 15"/></svg></a>
+    </div>
+  </div>
+
+  <div class="scroll-cue">SCROLL</div>
+</section>
+
+<!-- ============ PROJECTS ============ -->
+<section class="projects wrap" id="projects">
+  <div class="section-head">
+    <h2>Selected Work</h2>
+    <p>A look at recent finishing and furniture projects — from full residences to single custom pieces, built to hold up to daily life.</p>
+  </div>
+
+  <div class="tabs glass static">
+    <span class="tab active">All</span>
+    <span class="tab">Interiors</span>
+    <span class="tab">Furniture</span>
+    <span class="tab">Custom Finishes</span>
+  </div>
+  <div class="filter-row static">
+    <div class="filter-pill glass pill">Style: Any</div>
+    <div class="filter-pill glass pill">Area: Any</div>
+    <div class="filter-pill glass pill">Budget: Any</div>
+  </div>
+
+  <div class="grid" id="grid"></div>
+
+  <div class="load-more-wrap">
+    <button class="load-more glass pill">Load more</button>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="wrap">
+  <div class="footer-top">
+    <div>
+      <a href="#" class="logo">oakwell</a>
+      <p style="color:var(--ink-dim); font-size:13.5px; margin-top:10px; max-width:260px;">Interior finishing &amp; custom furniture, Addis Ababa.</p>
+    </div>
+    <ul class="footer-links">
+      <li><a href="#">About</a></li>
+      <li><a href="#">Services</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#">Journal</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Oakwell. All rights reserved.</span>
+    <span>hello@oakwell.studio</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- NAV scroll state ---------- */
+  var nav = document.getElementById('nav');
+  window.addEventListener('scroll', function(){
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  /* ---------- mobile menu ---------- */
+  var hamburger = document.getElementById('hamburger');
+  var sheet = document.getElementById('mobileSheet');
+  hamburger.addEventListener('click', function(){
+    hamburger.classList.toggle('open');
+    sheet.classList.toggle('open');
+  });
+  sheet.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){ hamburger.classList.remove('open'); sheet.classList.remove('open'); });
+  });
+
+  /* ---------- HERO phase machine ---------- */
+  var hero = document.getElementById('hero');
+  var headline = document.getElementById('headline');
+  var layerFull = document.getElementById('layerFull');
+  var layerSplit = document.getElementById('layerSplit');
+  var ctaBtn = document.getElementById('ctaBtn');
+
+  var HEADLINE = "We don't finish rooms. We finish how you live in them.";
+
+  function buildWords(){
+    headline.classList.remove('plain');
+    headline.innerHTML = '';
+    var words = HEADLINE.split(' ');
+    words.forEach(function(w, i){
+      var span = document.createElement('span');
+      span.className = 'word';
+      span.textContent = w + (i < words.length - 1 ? '\u00A0' : '');
+      span.style.animationDelay = (i * 0.11) + 's';
+      headline.appendChild(span);
+    });
+    // trigger the entrance animation on the next frame, then let it persist
+    // across later phase changes (class-based, not phase-attribute-based)
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){
+        headline.querySelectorAll('.word').forEach(function(w){ w.classList.add('play'); });
+      });
+    });
+  }
+
+  var timer = null;
+  var paused = false;
+  var phase = 'a';
+
+  var DURATIONS = { a: 3400, b: 5200, c: 6200 };
+
+  function setPhase(p){
+    phase = p;
+    hero.setAttribute('data-phase', p);
+    layerFull.classList.toggle('on', p !== 'c');
+    layerSplit.classList.toggle('on', p === 'c');
+    ctaBtn.classList.toggle('visible', p !== 'a');
+    if(p === 'a'){ buildWords(); }
+    schedule();
+  }
+
+  function nextPhase(){
+    if(phase === 'a') return 'b';
+    if(phase === 'b') return 'c';
+    return 'a';
+  }
+
+  function schedule(){
+    clearTimeout(timer);
+    if(paused || reduceMotion) return;
+    timer = setTimeout(function(){ setPhase(nextPhase()); }, DURATIONS[phase]);
+  }
+
+  hero.addEventListener('mouseenter', function(){ paused = true; clearTimeout(timer); });
+  hero.addEventListener('mouseleave', function(){ paused = false; schedule(); });
+
+  if(reduceMotion){
+    setPhase('c');
+  } else {
+    buildWords();
+    schedule();
+  }
+
+  /* tab click (decorative, keeps phase on b) */
+  document.querySelectorAll('.hero .tab').forEach(function(tab){
+    tab.addEventListener('click', function(){
+      tab.parentElement.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('active'); });
+      tab.classList.add('active');
+      paused = true; clearTimeout(timer);
+      setTimeout(function(){ paused = false; schedule(); }, 4000);
+    });
+  });
+  document.querySelectorAll('.hero .step').forEach(function(step){
+    step.addEventListener('click', function(){
+      step.parentElement.querySelectorAll('.step').forEach(function(s){ s.classList.remove('active'); });
+      step.classList.add('active');
+    });
+  });
+
+  /* ---------- PROJECT DATA + GRID ---------- */
+  var PROJECTS = [
+    {name:"The Aurelia Suite", cat:"Residential Finishing", scope:"Full Suite", area:"210 m²", dur:"10 wks", type:"kenburns"},
+    {name:"Marchetti Loft", cat:"Custom Furniture", scope:"Furniture Set", area:"—", dur:"4 wks", type:"interior"},
+    {name:"Solene Residence", cat:"Full Interior Finish", scope:"Whole Home", area:"340 m²", dur:"16 wks", type:"exterior-night"},
+    {name:"The Birchwood", cat:"Custom Furniture", scope:"Built-ins", area:"—", dur:"5 wks", type:"kenburns"},
+    {name:"Casa Del Rio", cat:"Residential Finishing", scope:"Full Suite", area:"180 m²", dur:"9 wks", type:"interior"},
+    {name:"The Linden Room", cat:"Boutique Hospitality", scope:"Lounge + Bar", area:"260 m²", dur:"12 wks", type:"exterior-night"},
+    {name:"Meridian Penthouse", cat:"Full Interior Finish", scope:"Whole Home", area:"295 m²", dur:"14 wks", type:"kenburns"},
+    {name:"The Alder Suite", cat:"Custom Furniture", scope:"Furniture Set", area:"—", dur:"6 wks", type:"interior"}
+  ];
+
+  var grid = document.getElementById('grid');
+  var hues = [0,18,-14,10,-8,22,-20,6];
+
+  function sceneHTML(type){
+    if(type === 'interior'){
+      return '<div class="sky"></div><div class="mullions"></div><div class="floor-glow"></div>';
+    }
+    if(type === 'exterior-night'){
+      return '<div class="sky"></div><div class="roof"></div><div class="ground"></div>';
+    }
+    return '<div class="sky"></div><div class="roof"></div><div class="glow" style="width:26px;height:34px;left:30%;bottom:28%;"></div><div class="ground"></div>';
+  }
+
+  PROJECTS.forEach(function(p, i){
+    var card = document.createElement('div');
+    card.className = 'card';
+    card.style.setProperty('--hue', hues[i] + 'deg');
+    card.innerHTML =
+      '<div class="scene active ' + p.type + '" style="filter:hue-rotate(' + hues[i] + 'deg)">' + sceneHTML(p.type) + '</div>' +
+      '<div class="scene alt ' + (p.type === 'interior' ? 'exterior-night' : 'interior') + '" style="opacity:0; filter:hue-rotate(' + hues[i] + 'deg)">' + sceneHTML(p.type === 'interior' ? 'exterior-night' : 'interior') + '</div>' +
+      '<div class="card-scrim"></div>' +
+      '<button class="card-cta glass pill">View Details</button>' +
+      '<button class="card-arrow glass arrow-prev" aria-label="Previous image">&#8592;</button>' +
+      '<button class="card-arrow glass arrow-next" aria-label="Next image">&#8594;</button>' +
+      '<div class="card-body">' +
+        '<h3 class="card-name">' + p.name + '</h3>' +
+        '<div class="card-sub">' + p.cat + '</div>' +
+        '<ul class="card-stats"><li>' + p.scope + '</li><li>' + p.area + '</li><li>' + p.dur + '</li></ul>' +
+      '</div>';
+    grid.appendChild(card);
+
+    var showingAlt = false;
+    var active = card.querySelector('.scene.active');
+    var alt = card.querySelector('.scene.alt');
+    function toggleImg(){
+      showingAlt = !showingAlt;
+      active.style.opacity = showingAlt ? 0 : 1;
+      alt.style.opacity = showingAlt ? 1 : 0;
+    }
+    card.querySelector('.arrow-prev').addEventListener('click', function(e){ e.stopPropagation(); toggleImg(); });
+    card.querySelector('.arrow-next').addEventListener('click', function(e){ e.stopPropagation(); toggleImg(); });
+
+    /* touch/tap-to-reveal for small screens */
+    card.addEventListener('click', function(){
+      if(window.matchMedia('(hover: none)').matches){
+        document.querySelectorAll('.card.tapped').forEach(function(c){ if(c!==card) c.classList.remove('tapped'); });
+        card.classList.toggle('tapped');
+      }
+    });
+  });
+
+  /* tap-reveal styling hook (mirrors :hover) */
+  var style = document.createElement('style');
+  style.textContent = '.card.tapped .card-stats, .card.tapped .card-cta, .card.tapped .card-arrow{opacity:1 !important; transform:none !important;} .card.tapped .card-scrim{background:linear-gradient(to top, rgba(0,0,0,.72) 0%, rgba(0,0,0,.22) 55%, transparent 78%) !important;}';
+  document.head.appendChild(style);
+
+  /* ---------- scroll reveal for cards (graceful fallback if unsupported) ---------- */
+  var cards = document.querySelectorAll('.card');
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          entry.target.classList.add('in-view');
+          io.unobserve(entry.target);
+        }
+      });
+    }, {threshold:.15});
+    cards.forEach(function(c, i){
+      c.style.transitionDelay = (reduceMotion ? 0 : (i % 2) * 0.08) + 's';
+      io.observe(c);
+    });
+  } else {
+    cards.forEach(function(c){ c.classList.add('in-view'); });
+  }
+})();
+</script>
+</body>
+</html>
