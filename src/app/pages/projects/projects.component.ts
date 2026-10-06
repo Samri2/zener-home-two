@@ -43,7 +43,7 @@ type ProjectCategory = 'residence' | 'commercial' | 'hotel';
       <!-- 2. Project Search and Category Filters -->
       <section class="sticky top-[105px] z-30 border-b border-orange-100 bg-white/95 py-6 shadow-sm backdrop-blur-md">
         <div class="mx-auto max-w-7xl px-6 sm:px-8">
-          <div class="flex flex-col items-center justify-between gap-4 lg:flex-row">
+          <div class="flex flex-col items-center justify-between gap-4 py-4 lg:flex-row">
             <div class="relative w-full flex-shrink-0 lg:w-96">
               <app-icon name="search" customClass="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-orange-500"></app-icon>
               <input
@@ -166,7 +166,7 @@ type ProjectCategory = 'residence' | 'commercial' | 'hotel';
                 </div>
               </div>
               }
-            }
+            </div>
           }
 
         </div>
